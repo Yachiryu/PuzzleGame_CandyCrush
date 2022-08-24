@@ -14,12 +14,13 @@ public class Board : MonoBehaviour
     private void Start()
     {
         CrearBoard();
-        
+        OrganizarCamara();
     }
 
     void CrearBoard()
     {
         board = new Tile[alto, ancho];
+        
 
         for (int i = 0; i < alto; i++)
         {
@@ -35,7 +36,14 @@ public class Board : MonoBehaviour
                 tile.Incializar(i,j);
             }
         }
-        camara.transform.position = new Vector3(alto, ancho,0);
+
+    }
+
+    void OrganizarCamara()
+    {
+        camara.transform.position = new Vector3(((float)alto / 2)-.5f, (((float)ancho / 2))-.5f,- 10);
+        camara.orthographicSize = ((float)ancho / 2);
+        //camara.aspect = ((float)ancho /(float)alto);
     }
 
 }
