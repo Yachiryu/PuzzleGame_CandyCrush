@@ -8,20 +8,29 @@ public class Board : MonoBehaviour
     public int ancho;
     public int borde;
     public Tile[,] board;
+    public GamePiece[,] gamePiece; 
     public GameObject prefTile;
 
     public GameObject [] prefPuntos;
-
     public Camera camara;
 
     
+
 
     private void Start()
     {
         CrearBoard();
         OrganizarCamara();
-        //PiezaAleatoria();
         LlenarMatrizAleatoria();
+    }
+
+    Vector3 startPos;
+    Vector3 endPos;
+    [Range(0f, 1f)] float time;
+    
+    void Update()
+    {
+        transform.position = Vector3.Lerp(startPos, endPos, time); ;
     }
 
     void CrearBoard()
@@ -55,11 +64,6 @@ public class Board : MonoBehaviour
         float sizeX = (((float)ancho / 2) + borde) / aspectRatio;
 
         camara.orthographicSize = sizeY > sizeX ? sizeY: sizeX;
-
-        //camara.orthographicSize = ((float)ancho / 2);
-        //Screen.height;
-        //Screen.width;
-        //camara.aspect = ((float)ancho /(float)alto);
     }
 
     GameObject PiezaAleatoria()
@@ -76,16 +80,20 @@ public class Board : MonoBehaviour
 
     void LlenarMatrizAleatoria()
     {
+        gamePiece = new GamePiece[ancho, alto];
+
         for (int i = 0; i < ancho; i++)
         {
             for (int j = 0; j < alto; j++)
             {
                 GameObject go = PiezaAleatoria();
                 PiezaPosicion(go.GetComponent<GamePiece>(),i,j);
+                go.transform.parent = transform;
+                go.name = "GameP(" + i + ", " + j + ")";
 
-                //GamePiece gamePiece = go.GetComponent<GamePiece>();
-
-                
+                GamePiece gamePieces = go.GetComponent<GamePiece>();
+                gamePiece[i, j] = gamePieces;
+                gamePieces.Coordenadas(i, j);
             }
         }
     }

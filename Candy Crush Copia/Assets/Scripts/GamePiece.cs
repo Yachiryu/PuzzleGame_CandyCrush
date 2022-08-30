@@ -7,7 +7,7 @@ public class GamePiece : MonoBehaviour
     public int cordenadaX;
     public int cordenadaY;
 
-    public void Coordenada(int x , int y)
+    public void Coordenadas(int x , int y)
     {
         cordenadaX = x;
         cordenadaY = y;
