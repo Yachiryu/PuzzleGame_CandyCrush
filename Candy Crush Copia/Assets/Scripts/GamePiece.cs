@@ -15,6 +15,7 @@ public class GamePiece : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             MoverPieza(new Vector3((int)transform.position.x, (int)transform.position.y + 1, 0), tiempoMovimiento2);
@@ -34,6 +35,7 @@ public class GamePiece : MonoBehaviour
         {
             MoverPieza(new Vector3((int)transform.position.x + 1, (int)transform.position.y, 0), tiempoMovimiento2);
         }
+        */
     }
 
     public void Coordenadas(int x , int y)
@@ -43,11 +45,11 @@ public class GamePiece : MonoBehaviour
     }
 
 
-    void MoverPieza(Vector3 posicionFinal, float tiempoMovimiento)
+    void MoverPieza(int x,int y, float tiempoMovimiento)
     {
         if (yaSeEjecuto == true)
         {
-            StartCoroutine(MovePiece(posicionFinal, tiempoMovimiento));
+            StartCoroutine(MovePiece(new Vector3(x, y), tiempoMovimiento));
         }
     }
 
@@ -110,4 +112,7 @@ public class GamePiece : MonoBehaviour
         Suavisado,
         MasSuavisado,
     }
+
+    //public void
 }
+
