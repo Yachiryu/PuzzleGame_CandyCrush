@@ -14,6 +14,9 @@ public class Board : MonoBehaviour
     public GameObject [] prefPuntos;
     public Camera camara;
 
+    public Tile inicial;
+    public Tile final;
+
     
 
 
@@ -48,6 +51,7 @@ public class Board : MonoBehaviour
                 go.transform.parent = transform;
 
                 Tile tile = go.GetComponent<Tile>();
+                tile.board = this;
                 board[i, j] = tile;
                 tile.Incializar(i,j);
             }
@@ -97,4 +101,31 @@ public class Board : MonoBehaviour
             }
         }
     }
+
+    public void SetInitialTile(Tile ini)
+    {
+        inicial = null;
+        inicial = ini;
+    }
+
+    public void SetFinalTile(Tile fin)
+    {
+        if (inicial != null)
+        {
+            final = fin;
+        }
+    }
+
+    public void ReleaseTile()
+    {
+        if (inicial !=null && final != null)
+        {
+            inicial = null;
+            final = null;
+        }
+    }
+
+
 }
+
+
