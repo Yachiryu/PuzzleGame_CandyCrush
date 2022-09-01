@@ -103,6 +103,7 @@ public class GamePiece : MonoBehaviour
 
     public enum TipoMovimiento
     {
+        //
         Lineal,
         Entrada,
         Salida,
