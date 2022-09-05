@@ -10,6 +10,8 @@ public class GamePiece : MonoBehaviour
     public bool yaSeEjecuto = true;
     public AnimationCurve curve;
 
+    public Board board;
+
     public TipoMovimiento tipoDeMovimiento;
 
 
@@ -45,7 +47,7 @@ public class GamePiece : MonoBehaviour
     }
 
 
-    void MoverPieza(int x,int y, float tiempoMovimiento)
+    public void MoverPieza(int x,int y, float tiempoMovimiento)
     {
         if (yaSeEjecuto == true)
         {
@@ -66,6 +68,7 @@ public class GamePiece : MonoBehaviour
             {
                 llegoAlPunto = true;
                 yaSeEjecuto = true;
+                board.PiezaPosicion(this, (int)posicionFinal.x, (int)posicionFinal.y);
                 transform.position = new Vector3((int) posicionFinal.x,(int) posicionFinal.y);
                 break;
             }
@@ -97,12 +100,8 @@ public class GamePiece : MonoBehaviour
             tiempoTranscurrido += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-       
-       
 
-       
     }
-
     public enum TipoMovimiento
     {
         //
@@ -113,6 +112,6 @@ public class GamePiece : MonoBehaviour
         MasSuavisado,
     }
 
-    //public void
+    
 }
 

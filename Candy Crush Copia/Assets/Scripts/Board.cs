@@ -7,6 +7,7 @@ public class Board : MonoBehaviour
     public int alto;
     public int ancho;
     public int borde;
+
     public Tile[,] board;
     public GamePiece[,] gamePiece; 
     public GameObject prefTile;
@@ -52,8 +53,8 @@ public class Board : MonoBehaviour
 
                 Tile tile = go.GetComponent<Tile>();
                 tile.board = this;
-                board[i, j] = tile;
                 tile.Incializar(i,j);
+                board[i, j] = tile;
             }
         }
 
@@ -74,12 +75,15 @@ public class Board : MonoBehaviour
     {
         int numeroR = Random.Range(0, prefPuntos.Length);
         GameObject go = Instantiate(prefPuntos[numeroR]);
+        go.GetComponent<GamePiece>().board = this;
         return go;
     }
 
-    void PiezaPosicion(GamePiece gp , int x, int y )
+    public void PiezaPosicion(GamePiece gp , int x, int y )
     {
         gp.transform.position = new Vector3(x, y, 0f);
+        gp.Coordenadas(x, y);
+        gamePiece[x, y] = gp;
     }
 
     void LlenarMatrizAleatoria()
@@ -96,7 +100,6 @@ public class Board : MonoBehaviour
                 go.name = "GameP(" + i + ", " + j + ")";
 
                 GamePiece gamePieces = go.GetComponent<GamePiece>();
-                gamePiece[i, j] = gamePieces;
                 gamePieces.Coordenadas(i, j);
             }
         }
@@ -120,11 +123,31 @@ public class Board : MonoBehaviour
     {
         if (inicial !=null && final != null)
         {
-            inicial = null;
-            final = null;
+            SwitchPieces(inicial, final);
         }
+
+        inicial = null;
+        final = null;
+    } 
+
+    public void SwitchPieces(Tile inicial2, Tile final2)
+    {
+        GamePiece gpInicial= gamePiece[inicial2.indiceX, inicial2.indiceY];
+        GamePiece gpFinal = gamePiece[final2.indiceX,final2.indiceY];
+
+        gpInicial.MoverPieza(final2.indiceX, final2.indiceY, 2f);
+        gpFinal.MoverPieza(inicial2.indiceX, inicial2.indiceY, 2f);
     }
 
+    /*bool EsVecino(Tile inicial3, Tile final3)
+    {
+        if ()
+        {
+            return true;
+        }
+
+        return false;
+    }*/
 
 }
 

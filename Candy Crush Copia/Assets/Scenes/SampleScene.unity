@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f3e4421d179bbd468b40d3cfc378d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alto: 8
+  alto: 9
   ancho: 5
   borde: 1
   prefTile: {fileID: 8778191041354539951, guid: 6c9759047578369409461c623bcf3561, type: 3}
