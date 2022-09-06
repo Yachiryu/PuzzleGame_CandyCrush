@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Board : MonoBehaviour
 {
@@ -113,7 +114,7 @@ public class Board : MonoBehaviour
 
     public void SetFinalTile(Tile fin)
     {
-        if (inicial != null)
+        if (inicial != null && EsVecino(inicial, fin) == true)
         {
             final = fin;
         }
@@ -135,19 +136,116 @@ public class Board : MonoBehaviour
         GamePiece gpInicial= gamePiece[inicial2.indiceX, inicial2.indiceY];
         GamePiece gpFinal = gamePiece[final2.indiceX,final2.indiceY];
 
-        gpInicial.MoverPieza(final2.indiceX, final2.indiceY, 2f);
-        gpFinal.MoverPieza(inicial2.indiceX, inicial2.indiceY, 2f);
+        gpInicial.MoverPieza(final2.indiceX, final2.indiceY, 1f);
+        gpFinal.MoverPieza(inicial2.indiceX, inicial2.indiceY, 1f);
     }
 
-    /*bool EsVecino(Tile inicial3, Tile final3)
+    public bool EsVecino(Tile inicial3, Tile final3)
     {
-        if ()
+        if (Mathf.Abs(inicial3.indiceX - final3.indiceX) == 1 && (inicial3.indiceY == final3.indiceY))
         {
             return true;
         }
+        else
+        {
+            if (Mathf.Abs (inicial3.indiceY - final3.indiceY) == 1 && (inicial3.indiceX == final3.indiceX))
+            {
+                return true;
+            }
 
-        return false;
-    }*/
+            return false;
+        }
+        
+    }
+    public bool EstaEnRango(int x , int y)
+    {
+        return (x < ancho && x >= 0 && y >= 0 && y < alto);
+    }
+
+    List<GamePiece> EncontrarCoincidencias(int startX, int startY, Vector2 direccionDeBusqueda, int cantidadMinima = 3)
+    {
+        List<GamePiece> coincidencias = new List<GamePiece>();
+        GamePiece piezaInicial = null;
+
+        if (EstaEnRango(startX,startY))
+        { 
+            piezaInicial = gamePiece[startX, startY];
+        }
+        if (piezaInicial != null)
+        {
+            coincidencias.Add(piezaInicial);
+        }
+        else
+        {
+            return null;
+        }
+        int siguienteX;
+        int siguienteY;
+
+        int valorMaximo = alto > ancho? ancho : alto;
+
+        for (int i = 1; i < valorMaximo -1; i++)
+        {
+            siguienteX = startX + (int)Mathf.Clamp(direccionDeBusqueda.x, -1, 1) * i;
+            siguienteY = startY + (int)Mathf.Clamp(direccionDeBusqueda.x, -1, 1) * i;
+
+            if (EstaEnRango(siguienteX,siguienteY))
+            {
+                break;
+            }
+
+            GamePiece siguientepieza = gamePiece[siguienteX, siguienteY];
+            if (piezaInicial . tipoFicha == siguientepieza.tipoFicha && !coincidencias.Contains(siguientepieza))
+            {
+                coincidencias.Add(siguientepieza);
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (coincidencias.Count >= cantidadMinima)
+        {
+            return coincidencias;
+        }
+        return null;
+    }
+    
+    List<GamePiece> BusquedaVertical(int startX , int startY, int cantidadMinima = 3)
+    {
+        List<GamePiece> arriba = EncontrarCoincidencias(startX, startY, Vector2.up, 2);
+        List<GamePiece> Abajo = EncontrarCoincidencias(startX, startY, Vector2.down, 2);
+
+        if (arriba == null)
+        {
+            arriba = new List<GamePiece>();
+        }
+        if (Abajo == null)
+        {
+            Abajo = new List<GamePiece>();
+        }
+
+        var listaCombinadas = arriba.Union(Abajo).ToList();
+        return listaCombinadas.Count >= cantidadMinima ? listaCombinadas : null;
+
+    }List<GamePiece> BusquedaHorizontal(int startX , int startY, int cantidadMinima = 3)
+    {
+        List<GamePiece> derecha = EncontrarCoincidencias(startX, startY, Vector2.right, 2);
+        List<GamePiece> izquierda = EncontrarCoincidencias(startX, startY, Vector2.left, 2);
+
+        if (derecha == null)
+        {
+            derecha = new List<GamePiece>();
+        }
+        if (izquierda == null)
+        {
+            izquierda = new List<GamePiece>();
+        }
+
+        var listaCombinadas = derecha.Union(izquierda).ToList();
+        return listaCombinadas.Count >= cantidadMinima ? listaCombinadas : null;
+    }
+
 
 }
 

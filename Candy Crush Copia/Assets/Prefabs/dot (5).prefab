@@ -125,4 +125,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  board: {fileID: 0}
   tipoDeMovimiento: 4
+  tipoFicha: 4

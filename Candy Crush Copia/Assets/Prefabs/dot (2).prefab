@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 669fdcdab9e25e243b3f732f39ec5d87, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.29890394, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.0812664, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -125,4 +125,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  board: {fileID: 0}
   tipoDeMovimiento: 4
+  tipoFicha: 1

@@ -13,6 +13,7 @@ public class GamePiece : MonoBehaviour
     public Board board;
 
     public TipoMovimiento tipoDeMovimiento;
+    public TipoFicha tipoFicha;
 
 
     private void Update()
@@ -102,15 +103,33 @@ public class GamePiece : MonoBehaviour
         }
 
     }
+    public enum TipoFicha
+    {
+        Naranja,
+        Rojo,
+        Rosado,
+        Morado,
+        Azul,
+        AzulClaro,
+        Verde,
+        Amarillo,
+    }
     public enum TipoMovimiento
     {
-        //
         Lineal,
         Entrada,
         Salida,
         Suavisado,
         MasSuavisado,
     }
+
+    
+
+
+       
+
+       
+
 
     
 }
