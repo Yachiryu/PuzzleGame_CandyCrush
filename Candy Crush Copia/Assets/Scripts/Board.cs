@@ -19,20 +19,18 @@ public class Board : MonoBehaviour
     public Tile inicial;
     public Tile final;
 
-    
-
-
     private void Start()
     {
         CrearBoard();
         OrganizarCamara();
         LlenarMatrizAleatoria();
+        ResaltarCoincidencias();
     }
 
     Vector3 startPos;
     Vector3 endPos;
     [Range(0f, 1f)] float time;
-    
+
     void Update()
     {
         transform.position = Vector3.Lerp(startPos, endPos, time); ;
@@ -41,7 +39,6 @@ public class Board : MonoBehaviour
     void CrearBoard()
     {
         board = new Tile[ancho, alto];
-        
 
         for (int i = 0; i < ancho; i++)
         {
@@ -58,7 +55,6 @@ public class Board : MonoBehaviour
                 board[i, j] = tile;
             }
         }
-
     }
 
     void OrganizarCamara()
@@ -136,8 +132,8 @@ public class Board : MonoBehaviour
         GamePiece gpInicial= gamePiece[inicial2.indiceX, inicial2.indiceY];
         GamePiece gpFinal = gamePiece[final2.indiceX,final2.indiceY];
 
-        gpInicial.MoverPieza(final2.indiceX, final2.indiceY, 1f);
-        gpFinal.MoverPieza(inicial2.indiceX, inicial2.indiceY, 1f);
+        gpInicial.MoverPieza(final2.indiceX, final2.indiceY, 0.25f);
+        gpFinal.MoverPieza(inicial2.indiceX, inicial2.indiceY, 0.25f);
     }
 
     public bool EsVecino(Tile inicial3, Tile final3)
@@ -155,8 +151,8 @@ public class Board : MonoBehaviour
 
             return false;
         }
-        
     }
+
     public bool EstaEnRango(int x , int y)
     {
         return (x < ancho && x >= 0 && y >= 0 && y < alto);
@@ -210,8 +206,8 @@ public class Board : MonoBehaviour
         }
         return null;
     }
-    
-    List<GamePiece> BusquedaVertical(int startX , int startY, int cantidadMinima = 3)
+
+    List<GamePiece> BusquedaVertical(int startX, int startY, int cantidadMinima)
     {
         List<GamePiece> arriba = EncontrarCoincidencias(startX, startY, Vector2.up, 2);
         List<GamePiece> Abajo = EncontrarCoincidencias(startX, startY, Vector2.down, 2);
@@ -227,8 +223,8 @@ public class Board : MonoBehaviour
 
         var listaCombinadas = arriba.Union(Abajo).ToList();
         return listaCombinadas.Count >= cantidadMinima ? listaCombinadas : null;
-
-    }List<GamePiece> BusquedaHorizontal(int startX , int startY, int cantidadMinima = 3)
+    }
+    List<GamePiece> BusquedaHorizontal(int startX , int startY, int cantidadMinima)
     {
         List<GamePiece> derecha = EncontrarCoincidencias(startX, startY, Vector2.right, 2);
         List<GamePiece> izquierda = EncontrarCoincidencias(startX, startY, Vector2.left, 2);
@@ -241,12 +237,37 @@ public class Board : MonoBehaviour
         {
             izquierda = new List<GamePiece>();
         }
-
         var listaCombinadas = derecha.Union(izquierda).ToList();
         return listaCombinadas.Count >= cantidadMinima ? listaCombinadas : null;
     }
 
+    public void ResaltarCoincidencias()
+    {
+        for (int i = 0; i < ancho; i++)
+        {
+            for (int j = 0; j < alto; j++)
+            {
+                List<GamePiece> horizontal = BusquedaHorizontal(i,j,3);
+                List<GamePiece> vertical = BusquedaVertical(i,j,3);
 
+                if (horizontal == null)
+                {
+                    horizontal = new List<GamePiece>();
+                }
+                if (vertical == null)
+                {
+                    vertical = new List<GamePiece>();
+                }
+
+                var listasCombinadas = horizontal.Union(vertical).ToList();
+
+                if (listasCombinadas.Count >= 3)
+                {
+                    Debug.Log(listasCombinadas.Count);
+                }
+            }
+        }
+    }
 }
 
 
