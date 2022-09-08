@@ -241,7 +241,6 @@ MonoBehaviour:
   borde: 1
   prefTile: {fileID: 8778191041354539951, guid: 6c9759047578369409461c623bcf3561, type: 3}
   prefPuntos:
-  - {fileID: 8738662649744035476, guid: 1cb942f1b39340847a3a5d8b2c0c5bdc, type: 3}
   - {fileID: 8194064158944854706, guid: 7aca78ed2245b4d45b5f2a9bf3af280d, type: 3}
   - {fileID: 3534326891381428514, guid: f1efa44ec8e013442bec13884d988de6, type: 3}
   - {fileID: 162665832721178134, guid: bca44b477edee2f4d846695c34127175, type: 3}
@@ -249,6 +248,7 @@ MonoBehaviour:
   - {fileID: 7131774569809620107, guid: 0156d05a87362d641813bba84548b830, type: 3}
   - {fileID: 3001431487132712979, guid: d3833af002fe0414dbb61b13c27750e4, type: 3}
   - {fileID: 5087689782755308963, guid: 3ed86f82fff808045bd6034b3e396afa, type: 3}
+  - {fileID: 8738662649744035476, guid: 1cb942f1b39340847a3a5d8b2c0c5bdc, type: 3}
   camara: {fileID: 519420031}
   inicial: {fileID: 0}
   final: {fileID: 0}
