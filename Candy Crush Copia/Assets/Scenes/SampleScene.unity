@@ -239,6 +239,7 @@ MonoBehaviour:
   alto: 9
   ancho: 5
   borde: 1
+  swapTime: 0.25
   prefTile: {fileID: 8778191041354539951, guid: 6c9759047578369409461c623bcf3561, type: 3}
   prefPuntos:
   - {fileID: 8194064158944854706, guid: 7aca78ed2245b4d45b5f2a9bf3af280d, type: 3}

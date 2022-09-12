@@ -9,6 +9,9 @@ public class Board : MonoBehaviour
     public int ancho;
     public int borde;
 
+    [Range(0.1f ,.5f)]
+    public float swapTime;
+
     public Tile[,] board;
     public GamePiece[,] gamePiece;
     public GameObject prefTile;
@@ -23,7 +26,7 @@ public class Board : MonoBehaviour
     {
         CrearBoard();
         OrganizarCamara();
-        LlenarMatrizAleatoria();
+        LlenarMatriz();
         ResaltarCoincidencias();
     }
 
@@ -83,7 +86,7 @@ public class Board : MonoBehaviour
         gamePiece[x, y] = gp;
     }
 
-    void LlenarMatrizAleatoria()
+    void LlenarMatriz()
     {
         gamePiece = new GamePiece[ancho, alto];
 
@@ -91,15 +94,55 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < alto; j++)
             {
-                GameObject go = PiezaAleatoria();
-                PiezaPosicion(go.GetComponent<GamePiece>(), i, j);
-                go.transform.parent = transform;
-                go.name = "GameP(" + i + ", " + j + ")";
-
-                GamePiece gamePieces = go.GetComponent<GamePiece>();
-                gamePieces.Coordenadas(i, j);
+                LlenarMatrizAleatoriaEn(i, j);
             }
         }
+
+        bool estaLlena = true;
+        int interacciones = 0;
+        int interaccionesMaximas = 100;
+
+        while (!estaLlena)
+        {
+            List<GamePiece> coincidencias = EncontrarTodaslasCoincidencias();
+
+            if (coincidencias.Count == 0)
+            {
+                estaLlena = true;
+                break;
+            }
+            else
+            {
+                ReemplazarConPiezaAleatoria(coincidencias);
+            }
+            if (interacciones > interaccionesMaximas)
+            {
+                estaLlena = true;
+                Debug.LogWarning("Se alcanzó el numero maximo");
+            }
+            interacciones++;
+        }
+    }
+
+    private void ReemplazarConPiezaAleatoria(List<GamePiece> coincidencias)
+    {
+        foreach (GamePiece gamePiece in coincidencias)
+        {
+            ClearPiecesAt(gamePiece.cordenadaX, gamePiece.cordenadaY);
+            LlenarMatrizAleatoriaEn(gamePiece.cordenadaX, gamePiece.cordenadaY);
+        }
+    }
+
+    void LlenarMatrizAleatoriaEn(int x, int y)
+    {
+      GameObject go = PiezaAleatoria();
+      //PiezaPosicion(go.GetComponent<GamePiece>(), i, j);
+      //go.transform.parent = transform;
+      //go.name = "GameP(" + i + ", " + j + ")";
+
+      GamePiece gamePieces = go.GetComponent<GamePiece>();
+      //gamePieces.Coordenadas(i, j);
+
     }
 
     public void SetInitialTile(Tile ini)
@@ -131,14 +174,39 @@ public class Board : MonoBehaviour
 
     public void SwitchPieces(Tile inicial2, Tile final2)
     {
+        StartCoroutine(SwitchTileEnum(inicial2, final2));
+    }
+
+    IEnumerator SwitchTileEnum(Tile inicial2, Tile final2)
+    {
         GamePiece gpInicial = gamePiece[inicial2.indiceX, inicial2.indiceY];
         GamePiece gpFinal = gamePiece[final2.indiceX, final2.indiceY];
 
-        gpInicial.MoverPieza(final2.indiceX, final2.indiceY, 0.25f);
-        gpFinal.MoverPieza(inicial2.indiceX, inicial2.indiceY, 0.25f);
+        if (gpInicial != null && gpFinal != null)
+        {
 
-        ResaltarCoincidenciasEn(gpInicial.cordenadaX, gpInicial.cordenadaY);
-        ResaltarCoincidenciasEn(gpFinal.cordenadaX, gpFinal.cordenadaY);
+            gpInicial.MoverPieza(final2.indiceX, final2.indiceY, swapTime);
+            gpFinal.MoverPieza(inicial2.indiceX, inicial2.indiceY, swapTime);
+
+            yield return new WaitForSeconds(swapTime);
+
+            List<GamePiece> listaPiezaInicial = EncontrarCoincidenciasEn(gpInicial.cordenadaX, gpInicial.cordenadaY);
+            List<GamePiece> listaPiezaFinal = EncontrarCoincidenciasEn(gpFinal.cordenadaX, gpFinal.cordenadaY);
+
+            if (listaPiezaInicial.Count == 0 && listaPiezaFinal.Count == 0)
+            {
+                gpInicial.MoverPieza(inicial2.indiceX, inicial2.indiceY, swapTime);
+                gpFinal.MoverPieza(final2.indiceX, final2.indiceY, swapTime);
+            }
+
+            ClearPiecesAt(listaPiezaInicial);
+            ClearPiecesAt(listaPiezaFinal);
+         
+            ResaltarCoincidenciasEn(gpInicial.cordenadaX, gpInicial.cordenadaY);
+            ResaltarCoincidenciasEn(gpFinal.cordenadaX, gpFinal.cordenadaY);
+        }
+
+
     }
 
     public bool EsVecino(Tile inicial3, Tile final3)
@@ -198,13 +266,20 @@ public class Board : MonoBehaviour
 
             GamePiece siguientepieza = gamePiece[siguienteX, siguienteY];
 
-            if (piezaInicial.tipoFicha == siguientepieza.tipoFicha && !coincidencias.Contains(siguientepieza))
+            if (siguientepieza == null)
             {
-                coincidencias.Add(siguientepieza);
+                break;
             }
             else
             {
-                break;
+                if (piezaInicial.tipoFicha == siguientepieza.tipoFicha && !coincidencias.Contains(siguientepieza))
+                {
+                    coincidencias.Add(siguientepieza);
+                }
+                else
+                {
+                    break;
+                }
             }
         }
         if (coincidencias.Count >= cantidadMinima)
@@ -214,6 +289,21 @@ public class Board : MonoBehaviour
         return null;
     }
 
+    private List<GamePiece> EncontrarTodaslasCoincidencias()
+    {
+        List<GamePiece> todasLasCoincidencias = new List<GamePiece>();
+
+        for (int i = 0; i < ancho; i++)
+        {
+            for (int j = 0; j < alto; j++)
+            {
+                var coincidencias = EncontrarCoincidenciasEn(i, j);
+                todasLasCoincidencias = todasLasCoincidencias.Union(coincidencias).ToList();
+            }
+        }
+
+        return todasLasCoincidencias;
+    }
     List<GamePiece> BusquedaVertical(int startX, int startY, int cantidadMinima = 3)
     {
         List<GamePiece> arriba = EncontrarCoincidencias(startX, startY, Vector2.up, 2);
@@ -274,7 +364,7 @@ public class Board : MonoBehaviour
             }
         }
     }
-    private List<GamePiece> EncontrarCoincidenciasEn(int _x, int _y)
+    public List<GamePiece> EncontrarCoincidenciasEn(int _x, int _y)
     {
         List<GamePiece> horizontal = BusquedaHorizontal(_x, _y, 3);
         List<GamePiece> vertical = BusquedaVertical(_x, _y, 3);
@@ -290,6 +380,34 @@ public class Board : MonoBehaviour
         var listasCombinadas = horizontal.Union(vertical).ToList();
         return listasCombinadas;
     }
+    void ClearBoard()
+    {
+        for (int i = 0; i < ancho; i++)
+        {
+            for (int j = 0; j < alto; j++)
+            {
+                ClearPiecesAt(i,j);
+            }
+        }
+    }
+
+    private void ClearPiecesAt(int x, int y)
+    {
+        GamePiece pieceToClear = gamePiece[x, y];
+        if (pieceToClear != null)
+        {
+            gamePiece[x, y] = null;
+            Destroy(pieceToClear.gameObject);
+        }
+    }
+
+    void ClearPiecesAt(List<GamePiece> gamePieces)
+    {
+        foreach (GamePiece gp in gamePieces)
+        {
+            ClearPiecesAt(gp.cordenadaX, gp.cordenadaY);
+        }
+    }
 
     private void ResaltarTile(int x, int y , Color col)
     {
@@ -297,6 +415,8 @@ public class Board : MonoBehaviour
         sr.color = col;
     }
     
+   
+
     
 
 
