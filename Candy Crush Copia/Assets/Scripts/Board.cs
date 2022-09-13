@@ -98,7 +98,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        bool estaLlena = true;
+        bool estaLlena = false;
         int interacciones = 0;
         int interaccionesMaximas = 100;
 
@@ -136,16 +136,10 @@ public class Board : MonoBehaviour
     void LlenarMatrizAleatoriaEn(int x, int y)
     {
       GameObject go = PiezaAleatoria();
-      //PiezaPosicion(go.GetComponent<GamePiece>(), i, j);
-      //go.transform.parent = transform;
-      //go.name = "GameP(" + i + ", " + j + ")";
-
-      GamePiece gamePieces = go.GetComponent<GamePiece>();
-      //gamePieces.Coordenadas(i, j);
-
+      PiezaPosicion(go.GetComponent<GamePiece>(), x, y);
     }
 
-    public void SetInitialTile(Tile ini)
+    public void InitialTile(Tile ini)
     {
         if (inicial == null)
         {
@@ -174,10 +168,10 @@ public class Board : MonoBehaviour
 
     public void SwitchPieces(Tile inicial2, Tile final2)
     {
-        StartCoroutine(SwitchTileEnum(inicial2, final2));
+        StartCoroutine(SwitchTileCourutine(inicial2, final2));
     }
 
-    IEnumerator SwitchTileEnum(Tile inicial2, Tile final2)
+    IEnumerator SwitchTileCourutine(Tile inicial2, Tile final2)
     {
         GamePiece gpInicial = gamePiece[inicial2.indiceX, inicial2.indiceY];
         GamePiece gpFinal = gamePiece[final2.indiceX, final2.indiceY];
@@ -199,11 +193,13 @@ public class Board : MonoBehaviour
                 gpFinal.MoverPieza(final2.indiceX, final2.indiceY, swapTime);
             }
 
+
             ClearPiecesAt(listaPiezaInicial);
             ClearPiecesAt(listaPiezaFinal);
-         
-            ResaltarCoincidenciasEn(gpInicial.cordenadaX, gpInicial.cordenadaY);
-            ResaltarCoincidenciasEn(gpFinal.cordenadaX, gpFinal.cordenadaY);
+
+            CollapseColumn(listaPiezaInicial);
+            CollapseColumn(listaPiezaFinal);
+
         }
 
 
@@ -415,11 +411,70 @@ public class Board : MonoBehaviour
         sr.color = col;
     }
     
-   
 
-    
+    List<GamePiece> CollapseColumn(int column, float collapseTime = 0.1f)
+    {
+        List<GamePiece> movingPieces = new List<GamePiece>();
+
+        for (int i = 0; i < alto -1; i++)
+        {
+            if (gamePiece[column, i] == null)
+            {
+                for (int j = i + 1 ; j < alto; j++)
+                {
+                    if (gamePiece[column, j] != null)
+                    {
+                        gamePiece[column, j].MoverPieza(column,i,collapseTime);
+                        gamePiece[column, i] = gamePiece[column, j];
+                        gamePiece[column, j].Coordenadas(column, i);
+
+                        if (!movingPieces.Contains(gamePiece[column,i]))
+                        {
+                            movingPieces.Add(gamePiece[column, i]);
+                        }
+
+                        gamePiece[column, j] = null;
+                        break;
+                    }
+                }
+            }
+        }
+        return movingPieces;
+    }
+
+    List<GamePiece> CollapseColumn(List<GamePiece> gamePieces)
+    {
+        List<GamePiece> movingPieces = new List<GamePiece>();
+        List<int> collumnToCollapse = GetCollumns(gamePieces);
+
+        foreach (int collumn in collumnToCollapse)
+        {
+            movingPieces = movingPieces.Union(CollapseColumn(collumn)).ToList();
+        }
+        return movingPieces;
+    }
+
+    List<int> GetCollumns(List<GamePiece> gamePieces)
+    {
+        List<int> collumnIndex = new List<int>();
+
+        foreach (GamePiece gamePiece in gamePieces)
+        {
+            if (!collumnIndex.Contains(gamePiece.cordenadaX))
+            {
+                collumnIndex.Add(gamePiece.cordenadaX);
+            }
+        }
+        return collumnIndex;
+    }
 
 
-   
+
+
+
+
+
+
+
 }
 

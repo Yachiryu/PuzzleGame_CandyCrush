@@ -21,7 +21,7 @@ public class Tile : MonoBehaviour
 
     public void OnMouseDown()
     {
-        board.SetInitialTile(this);
+        board.InitialTile(this);
     }
 
     public void OnMouseEnter()
