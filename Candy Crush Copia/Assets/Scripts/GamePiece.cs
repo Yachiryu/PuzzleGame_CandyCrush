@@ -6,6 +6,7 @@ public class GamePiece : MonoBehaviour
 {
     public int cordenadaX;
     public int cordenadaY;
+
     public float tiempoMovimiento2;
     public bool yaSeEjecuto = true;
     public AnimationCurve curve;
@@ -122,15 +123,5 @@ public class GamePiece : MonoBehaviour
         Suavisado,
         MasSuavisado,
     }
-
-    
-
-
-       
-
-       
-
-
-    
 }
 
