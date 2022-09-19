@@ -1,0 +1,569 @@
+fileFormatVersion: 2
+guid: 81e31f0890299c04d856efaaf77a1294
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 225 - icons pack sprite sheet_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 360
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e9a48f86d51585478f9085af374dc68
+      internalID: -355289638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 225 - icons pack sprite sheet_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 360
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5bafb1fa01bdeb4e82b88e949b49b8d
+      internalID: -1604014038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 225 - icons pack sprite sheet_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 360
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd62f39986de48c43b064381f42709e8
+      internalID: -207421287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 225 - icons pack sprite sheet_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 360
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad1e63b5978a6854d84ae9a3801466c8
+      internalID: -1626850574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 225 - icons pack sprite sheet_4
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 360
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ad1f62bc41282c4c811f17b4e66e509
+      internalID: 789661585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 225 - icons pack sprite sheet_5
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 360
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73eab7db109aa214cbc28f7e62576ff7
+      internalID: -1468197312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 225 - icons pack sprite sheet_6
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 360
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd673dca3c86077458141ee8450c5c0c
+      internalID: 1778576058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 225 - icons pack sprite sheet_7
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 360
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d748207d534affe4aa4e783242608d52
+      internalID: -2138759814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 225 - icons pack sprite sheet_8
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 360
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca893dd3f7be3b84cb406914c4a6f191
+      internalID: -1566800685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      225 - icons pack sprite sheet_192: 962541577
+      225 - icons pack sprite sheet_32: 909257953
+      225 - icons pack sprite sheet_70: 2113254063
+      225 - icons pack sprite sheet_33: 1138638039
+      225 - icons pack sprite sheet_183: -1609842991
+      225 - icons pack sprite sheet_232: -614230903
+      225 - icons pack sprite sheet_190: -175855790
+      225 - icons pack sprite sheet_197: -563807357
+      225 - icons pack sprite sheet_209: -1765008869
+      225 - icons pack sprite sheet_49: 1838304819
+      225 - icons pack sprite sheet_169: 1190154549
+      225 - icons pack sprite sheet_1: -1604014038
+      225 - icons pack sprite sheet_217: 444083796
+      225 - icons pack sprite sheet_198: 847950358
+      225 - icons pack sprite sheet_7: -2138759814
+      225 - icons pack sprite sheet_18: 142071128
+      225 - icons pack sprite sheet_175: -1045948287
+      225 - icons pack sprite sheet_134: 1063004447
+      225 - icons pack sprite sheet_47: -1971135415
+      225 - icons pack sprite sheet_20: -3654360
+      225 - icons pack sprite sheet_227: -47924340
+      225 - icons pack sprite sheet_113: -381920725
+      225 - icons pack sprite sheet_108: -10557898
+      225 - icons pack sprite sheet_9: -21468679
+      225 - icons pack sprite sheet_118: 1010413977
+      225 - icons pack sprite sheet_176: 408380643
+      225 - icons pack sprite sheet_93: -536926168
+      225 - icons pack sprite sheet_203: -1434204792
+      225 - icons pack sprite sheet_21: -328907705
+      225 - icons pack sprite sheet_98: -338732457
+      225 - icons pack sprite sheet_143: 1419824445
+      225 - icons pack sprite sheet_28: 1331679669
+      225 - icons pack sprite sheet_140: 1618360995
+      225 - icons pack sprite sheet_144: 546509486
+      225 - icons pack sprite sheet_218: -478168434
+      225 - icons pack sprite sheet_12: -1496798250
+      225 - icons pack sprite sheet_73: -184543329
+      225 - icons pack sprite sheet_200: -1004478484
+      225 - icons pack sprite sheet_91: 632191578
+      225 - icons pack sprite sheet_58: -335085092
+      225 - icons pack sprite sheet_141: -2070370172
+      225 - icons pack sprite sheet_129: 238450332
+      225 - icons pack sprite sheet_187: 1639212419
+      225 - icons pack sprite sheet_107: -74646892
+      225 - icons pack sprite sheet_111: -1728235793
+      225 - icons pack sprite sheet_106: 1670075833
+      225 - icons pack sprite sheet_142: 1060207369
+      225 - icons pack sprite sheet_215: 664574383
+      225 - icons pack sprite sheet_124: -638184194
+      225 - icons pack sprite sheet_103: -1312440891
+      225 - icons pack sprite sheet_130: 2097658091
+      225 - icons pack sprite sheet_69: -1675459774
+      225 - icons pack sprite sheet_40: 2001532302
+      225 - icons pack sprite sheet_173: 433787995
+      225 - icons pack sprite sheet_87: 1099587169
+      225 - icons pack sprite sheet_204: 1447834384
+      225 - icons pack sprite sheet_181: 828477902
+      225 - icons pack sprite sheet_15: 1810105137
+      225 - icons pack sprite sheet_86: -92685287
+      225 - icons pack sprite sheet_157: -2078800466
+      225 - icons pack sprite sheet_85: 1004858618
+      225 - icons pack sprite sheet_61: -1732637346
+      225 - icons pack sprite sheet_161: 1381008197
+      225 - icons pack sprite sheet_146: 1820790008
+      225 - icons pack sprite sheet_96: -1869460594
+      225 - icons pack sprite sheet_128: 467687349
+      225 - icons pack sprite sheet_233: 55358429
+      225 - icons pack sprite sheet_66: 695348982
+      225 - icons pack sprite sheet_177: 100190051
+      225 - icons pack sprite sheet_78: 372399131
+      225 - icons pack sprite sheet_150: -1785114450
+      225 - icons pack sprite sheet_201: 1307371668
+      225 - icons pack sprite sheet_210: -1934956373
+      225 - icons pack sprite sheet_231: -754347423
+      225 - icons pack sprite sheet_94: -679615869
+      225 - icons pack sprite sheet_199: 1931866627
+      225 - icons pack sprite sheet_65: 732680142
+      225 - icons pack sprite sheet_46: -289094169
+      225 - icons pack sprite sheet_59: -1507135973
+      225 - icons pack sprite sheet_151: -1401914110
+      225 - icons pack sprite sheet_55: -1358813428
+      225 - icons pack sprite sheet_99: -630688378
+      225 - icons pack sprite sheet_178: -2086188944
+      225 - icons pack sprite sheet_194: -1967302560
+      225 - icons pack sprite sheet_195: -1208947794
+      225 - icons pack sprite sheet_228: 99912341
+      225 - icons pack sprite sheet_167: -91192975
+      225 - icons pack sprite sheet_26: -636752910
+      225 - icons pack sprite sheet_109: -1632351287
+      225 - icons pack sprite sheet_76: -84693692
+      225 - icons pack sprite sheet_63: -1995722652
+      225 - icons pack sprite sheet_13: 976973966
+      225 - icons pack sprite sheet_102: -130332174
+      225 - icons pack sprite sheet_27: -1528326693
+      225 - icons pack sprite sheet_43: -407922467
+      225 - icons pack sprite sheet_213: -2001782381
+      225 - icons pack sprite sheet_56: 1588112330
+      225 - icons pack sprite sheet_159: -2085870454
+      225 - icons pack sprite sheet_2: -207421287
+      225 - icons pack sprite sheet_154: -1442895511
+      225 - icons pack sprite sheet_162: -554852129
+      225 - icons pack sprite sheet_83: -1834502649
+      225 - icons pack sprite sheet_165: 1262065235
+      225 - icons pack sprite sheet_3: -1626850574
+      225 - icons pack sprite sheet_170: 412209953
+      225 - icons pack sprite sheet_121: 1905134127
+      225 - icons pack sprite sheet_97: 1781074785
+      225 - icons pack sprite sheet_214: 654005596
+      225 - icons pack sprite sheet_6: 1778576058
+      225 - icons pack sprite sheet_44: 1800548885
+      225 - icons pack sprite sheet_119: 1042488027
+      225 - icons pack sprite sheet_171: -364183256
+      225 - icons pack sprite sheet_224: 401545104
+      225 - icons pack sprite sheet_79: -279006395
+      225 - icons pack sprite sheet_221: -1229807708
+      225 - icons pack sprite sheet_35: 448548929
+      225 - icons pack sprite sheet_0: -355289638
+      225 - icons pack sprite sheet_45: -1536293144
+      225 - icons pack sprite sheet_54: 1930614854
+      225 - icons pack sprite sheet_115: -359070715
+      225 - icons pack sprite sheet_51: 1663907668
+      225 - icons pack sprite sheet_77: -1500003612
+      225 - icons pack sprite sheet_211: -1531184559
+      225 - icons pack sprite sheet_148: 1221916467
+      225 - icons pack sprite sheet_220: -555097814
+      225 - icons pack sprite sheet_8: -1566800685
+      225 - icons pack sprite sheet_155: 2042308117
+      225 - icons pack sprite sheet_156: -1822626548
+      225 - icons pack sprite sheet_133: 243712011
+      225 - icons pack sprite sheet_206: 624274523
+      225 - icons pack sprite sheet_123: -885357607
+      225 - icons pack sprite sheet_110: 1788676338
+      225 - icons pack sprite sheet_136: 867456891
+      225 - icons pack sprite sheet_193: -1958718696
+      225 - icons pack sprite sheet_16: -162853851
+      225 - icons pack sprite sheet_31: -512137779
+      225 - icons pack sprite sheet_122: 893802615
+      225 - icons pack sprite sheet_131: -530117995
+      225 - icons pack sprite sheet_74: -1493607438
+      225 - icons pack sprite sheet_174: 1378041184
+      225 - icons pack sprite sheet_208: -850293991
+      225 - icons pack sprite sheet_212: -76747189
+      225 - icons pack sprite sheet_189: -185280912
+      225 - icons pack sprite sheet_179: -1583758994
+      225 - icons pack sprite sheet_163: -959923834
+      225 - icons pack sprite sheet_82: 527873888
+      225 - icons pack sprite sheet_88: 2136232593
+      225 - icons pack sprite sheet_125: -382941855
+      225 - icons pack sprite sheet_104: 2038611032
+      225 - icons pack sprite sheet_160: -1454233728
+      225 - icons pack sprite sheet_105: -1110594853
+      225 - icons pack sprite sheet_137: -766915127
+      225 - icons pack sprite sheet_41: -916338002
+      225 - icons pack sprite sheet_158: 628772808
+      225 - icons pack sprite sheet_149: 65953062
+      225 - icons pack sprite sheet_29: 172281802
+      225 - icons pack sprite sheet_172: 835397038
+      225 - icons pack sprite sheet_72: -447885373
+      225 - icons pack sprite sheet_219: -1623472174
+      225 - icons pack sprite sheet_89: 1534533610
+      225 - icons pack sprite sheet_71: -1953821271
+      225 - icons pack sprite sheet_38: 1893976139
+      225 - icons pack sprite sheet_30: -1473093378
+      225 - icons pack sprite sheet_147: 970558570
+      225 - icons pack sprite sheet_100: 1371029461
+      225 - icons pack sprite sheet_222: 875913481
+      225 - icons pack sprite sheet_168: -1815118341
+      225 - icons pack sprite sheet_223: 831439796
+      225 - icons pack sprite sheet_10: -548429550
+      225 - icons pack sprite sheet_126: -1334485162
+      225 - icons pack sprite sheet_80: -1505659458
+      225 - icons pack sprite sheet_48: -2023231535
+      225 - icons pack sprite sheet_95: -670619133
+      225 - icons pack sprite sheet_205: 1131552928
+      225 - icons pack sprite sheet_64: 233162372
+      225 - icons pack sprite sheet_182: -673767177
+      225 - icons pack sprite sheet_24: 234581657
+      225 - icons pack sprite sheet_68: 21975729
+      225 - icons pack sprite sheet_116: 1272094123
+      225 - icons pack sprite sheet_53: -1763524067
+      225 - icons pack sprite sheet_60: -921227771
+      225 - icons pack sprite sheet_191: 185295012
+      225 - icons pack sprite sheet_39: 1107396631
+      225 - icons pack sprite sheet_153: 2110397304
+      225 - icons pack sprite sheet_117: 1120224086
+      225 - icons pack sprite sheet_135: -913239780
+      225 - icons pack sprite sheet_186: -2130784193
+      225 - icons pack sprite sheet_112: -1221765632
+      225 - icons pack sprite sheet_132: -1664436747
+      225 - icons pack sprite sheet_92: -1034714009
+      225 - icons pack sprite sheet_127: 1561613741
+      225 - icons pack sprite sheet_226: -1685868779
+      225 - icons pack sprite sheet_11: -532261671
+      225 - icons pack sprite sheet_14: -633492813
+      225 - icons pack sprite sheet_164: 952003549
+      225 - icons pack sprite sheet_139: 729528561
+      225 - icons pack sprite sheet_81: -291768969
+      225 - icons pack sprite sheet_120: 1965777042
+      225 - icons pack sprite sheet_196: 2015602772
+      225 - icons pack sprite sheet_145: 2076851352
+      225 - icons pack sprite sheet_67: 1772295706
+      225 - icons pack sprite sheet_229: 93173926
+      225 - icons pack sprite sheet_57: -1282329694
+      225 - icons pack sprite sheet_184: 1133058912
+      225 - icons pack sprite sheet_34: -757875045
+      225 - icons pack sprite sheet_185: 956771474
+      225 - icons pack sprite sheet_50: -1524550274
+      225 - icons pack sprite sheet_202: 787001571
+      225 - icons pack sprite sheet_36: 998635324
+      225 - icons pack sprite sheet_101: -1919402277
+      225 - icons pack sprite sheet_207: -970344873
+      225 - icons pack sprite sheet_90: 1171768682
+      225 - icons pack sprite sheet_114: -417805434
+      225 - icons pack sprite sheet_152: 1389098999
+      225 - icons pack sprite sheet_216: -1133789634
+      225 - icons pack sprite sheet_188: 407307334
+      225 - icons pack sprite sheet_17: 1073512309
+      225 - icons pack sprite sheet_22: -2091202377
+      225 - icons pack sprite sheet_180: -707440973
+      225 - icons pack sprite sheet_230: -1631284814
+      225 - icons pack sprite sheet_62: -228650891
+      225 - icons pack sprite sheet_138: -77808752
+      225 - icons pack sprite sheet_37: 953014948
+      225 - icons pack sprite sheet_166: 1968070982
+      225 - icons pack sprite sheet_75: -181607898
+      225 - icons pack sprite sheet_84: -383490102
+      225 - icons pack sprite sheet_23: -2061484817
+      225 - icons pack sprite sheet_25: -160110134
+      225 - icons pack sprite sheet_52: -754738092
+      225 - icons pack sprite sheet_19: -1134642380
+      225 - icons pack sprite sheet_4: 789661585
+      225 - icons pack sprite sheet_5: -1468197312
+      225 - icons pack sprite sheet_225: 232234434
+      225 - icons pack sprite sheet_42: 567132920
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

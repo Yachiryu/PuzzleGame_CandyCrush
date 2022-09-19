@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1326451546203766608}
   - component: {fileID: -2392599162021334054}
   m_Layer: 0
-  m_Name: dot
+  m_Name: Granada
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 669fdcdab9e25e243b3f732f39ec5d87, type: 3}
-  m_Color: {r: 1, g: 0.7276479, b: 0, a: 1}
+  m_Sprite: {fileID: -1566800685, guid: 81e31f0890299c04d856efaaf77a1294, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -127,4 +127,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   board: {fileID: 0}
   tipoDeMovimiento: 0
-  tipoFicha: 7
+  tipoFicha: 4

@@ -107,13 +107,13 @@ public class GamePiece : MonoBehaviour
     public enum TipoFicha
     {
         Naranja,
-        Rojo,
-        Rosado,
-        Morado,
-        Azul,
-        AzulClaro,
-        Verde,
-        Amarillo,
+        Manzana,
+        Mango,
+        Melon,
+        Granada,
+        Limon2,
+        limon,
+        Sandia,
     }
     public enum TipoMovimiento
     {

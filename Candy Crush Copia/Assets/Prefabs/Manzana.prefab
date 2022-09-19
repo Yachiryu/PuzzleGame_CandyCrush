@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7596605484975124434}
   - component: {fileID: 5088633424033509591}
   m_Layer: 0
-  m_Name: dot (3)
+  m_Name: Manzana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 669fdcdab9e25e243b3f732f39ec5d87, type: 3}
-  m_Color: {r: 0.4716981, g: 0, b: 0.27007023, a: 1}
+  m_Sprite: {fileID: -207421287, guid: 81e31f0890299c04d856efaaf77a1294, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -127,4 +127,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   board: {fileID: 0}
   tipoDeMovimiento: 0
-  tipoFicha: 2
+  tipoFicha: 1
