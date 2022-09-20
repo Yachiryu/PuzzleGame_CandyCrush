@@ -1,0 +1,540 @@
+fileFormatVersion: 2
+guid: 3f2b9b51826619645a0fb9410b12df8f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 20
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_16
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 271
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0944ceee1a6cf3b48a5ed41602820ec3
+      internalID: -933654607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_17
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 271
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71a9322b2747e834c87b4cd7d77be9e8
+      internalID: 1872255112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_18
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 274
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54cd272655e100a438509ea07228af32
+      internalID: -120259396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_19
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 268
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19b2065cf5479a74e9832c463c5f215e
+      internalID: -1507949577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_20
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 268
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 153247b1c1ad10046a3a1ff55f85aaf1
+      internalID: -1387672870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_24
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 230
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b363ba5170f7cd44b5ff05c36344eeb
+      internalID: 1809042028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_25
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 230
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 958b9fd76d98d5448b5ac00ca4b97da4
+      internalID: -369799287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_27
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 226
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b23ee3a73680e54ca4404258a5368b4
+      internalID: -1217934412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_28
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 226
+        width: 33
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3898ac2974d3fc4e95a5fd8b383b4bc
+      internalID: 1562822610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_81
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 40
+        width: 36
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ea89a64f12e89a499acec215d6247b6
+      internalID: 188047051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_82
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 41
+        width: 34
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f24500147f685c4f862b800c05d6942
+      internalID: -877502629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_83
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 41
+        width: 24
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66d2f141820dad447bd21cd8749193cf
+      internalID: 1972616802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_88
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 41
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25a5743fb325d124d841fdc302af2f5f
+      internalID: 1460677040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_98
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 41
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f61644e6887de1e4593b04a73981869a
+      internalID: 1114793185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_18: -120259396
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_15: -969421259
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_79: 569170741
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_28: 1562822610
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_34: 867030944
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_50: 59419035
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_36: 621160903
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_46: -2075199486
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_63: -1281244571
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_91: -603779055
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_99: 207193494
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_5: -1431325452
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_17: 1872255112
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_8: 64884024
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_62: 1132702597
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_58: 466074152
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_75: -1439845112
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_54: -1433423327
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_68: -1022579849
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_48: 933538042
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_14: -2043991400
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_51: 1687300704
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_30: -475862241
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_40: -1851151819
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_70: -1112688955
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_44: 897348041
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_69: 1074963329
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_87: 821150988
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_61: -1272969845
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_9: 676157236
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_31: -1117892907
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_53: -799824928
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_93: -265990584
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_22: 1991275466
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_59: 396819311
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_29: -1042318475
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_35: -1380661810
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_13: 1696333763
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_73: 886964050
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_74: 1453548411
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_42: 242101864
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_47: -576746762
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_71: 984260200
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_60: 1768672823
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_12: 1509659419
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_4: -473121288
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_33: 15409263
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_20: -1387672870
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_89: -381982019
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_94: 1740981705
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_76: -609654683
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_11: -689894797
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_49: 1402223022
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_21: 141315063
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_10: 67573076
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_78: -123970391
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_43: 2008739117
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_95: 961849606
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_27: -1217934412
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_19: -1507949577
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_77: -1088923651
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_39: 708945153
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_72: -365586235
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_97: 1701823455
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_65: 1171065015
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_26: 1856539627
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_88: 1460677040
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_85: -1215030253
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_25: -369799287
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_23: -1539639330
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_6: -813590489
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_45: -1950432328
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_1: -1470531801
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_37: -687024490
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_2: 303058054
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_83: 1972616802
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_96: 1258899059
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_7: 769953203
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_55: 1891731914
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_66: -297101021
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_81: 188047051
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_56: -622666790
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_84: -1886637672
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_57: -1214988510
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_16: -933654607
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_3: -1151511075
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_80: 1427957085
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_24: 1809042028
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_92: 619302988
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_52: -427310360
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_32: -1377749460
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_86: 1871460467
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_98: 1114793185
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_82: -877502629
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_67: 1927387929
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_41: -694061727
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_64: 710042302
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_90: 1478230917
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_0: 1956503902
+      Top-Down-Farmlands-Tileset-Pixel-Art2-removebg-preview_38: 1780683429
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
