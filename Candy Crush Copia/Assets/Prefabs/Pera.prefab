@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6494476892948603110}
   - component: {fileID: 5216241129397565699}
   m_Layer: 0
-  m_Name: Mango
+  m_Name: Pera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

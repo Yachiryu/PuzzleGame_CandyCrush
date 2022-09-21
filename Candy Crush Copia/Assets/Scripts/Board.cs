@@ -2,9 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class Board : MonoBehaviour
 {
+    //Score
+    public static int scoreValue = 0;
+    public TMP_Text score;
+    private string scoreEnPantalla;
+    public string scoreFinal;
+    public int points = 10;
+
+
     //Tablero UI
     public int alto;
     public int ancho;
@@ -33,6 +42,15 @@ public class Board : MonoBehaviour
         LlenarMatriz();
         ResaltarCoincidencias();
         
+    }
+
+    public void Score(int points)
+    {
+        scoreValue += points;
+        scoreEnPantalla = "Score" + ":" + scoreValue;
+        score.text = scoreEnPantalla;
+
+        scoreFinal = score.text;
     }
 
     void CrearBoard()
@@ -201,6 +219,7 @@ public class Board : MonoBehaviour
                 else
                 {
                     listaPiezaInicial = listaPiezaInicial.Union(listaPiezaFinal).ToList();
+                    Score(points);
                     ClearAndRefillBoard(listaPiezaInicial);
                 }
 
