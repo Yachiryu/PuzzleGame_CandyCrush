@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6611344541041734485}
   - component: {fileID: 2784629178479286507}
   m_Layer: 0
-  m_Name: Sandia
+  m_Name: Pina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1626850574, guid: 81e31f0890299c04d856efaaf77a1294, type: 3}
+  m_Sprite: {fileID: -532261671, guid: 81e31f0890299c04d856efaaf77a1294, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,4 +127,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   board: {fileID: 0}
   tipoDeMovimiento: 0
-  tipoFicha: 6
+  tipoFicha: 9

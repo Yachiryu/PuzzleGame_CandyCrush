@@ -8,10 +8,9 @@ public class SceneManagement : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("Juego Principal");
-
     } 
 
-    public void BackMenu() 
+    public void MainMenu() 
     {
         SceneManager.LoadScene("Main Menu");
     }
@@ -23,7 +22,33 @@ public class SceneManagement : MonoBehaviour
 
     public void SelectLevel()
     {
-        //SceneManager.LoadScene();
+        SceneManager.LoadScene("Level Selection");
     }
+    public void Level_1()
+    {
+        SceneManager.LoadScene("Nivel_1");
+    }
+    public void Level_2()
+    {
+        SceneManager.LoadScene("Nivel_2");
+    }
+    public void Level_3()
+    {
+        SceneManager.LoadScene("Nivel_3");
+    }
+
+    public void Level_4()
+    {
+        SceneManager.LoadScene("Nivel_4");
+    }
+
+    public void Level_5()
+    {
+        SceneManager.LoadScene("Nivel_5");
+    }
+
+
+
+
 
 }

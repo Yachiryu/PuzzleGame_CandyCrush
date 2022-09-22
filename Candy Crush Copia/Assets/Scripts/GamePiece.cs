@@ -108,12 +108,14 @@ public class GamePiece : MonoBehaviour
     {
         Naranja,
         Manzana,
-        Mango,
-        Melon,
+        Pera,
+        Durazno,
         Granada,
-        Limon2,
-        limon,
+        Limon,
         Sandia,
+        Aguacate,
+        Morazul,
+        Pina,
     }
     public enum TipoMovimiento
     {
