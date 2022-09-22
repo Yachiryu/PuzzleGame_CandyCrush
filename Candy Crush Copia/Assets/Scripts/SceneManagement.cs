@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManagment : MonoBehaviour
+public class SceneManagement : MonoBehaviour
 {
     public void StartGame()
     {
         SceneManager.LoadScene("Juego Principal");
-    }
 
+    } 
+
+    public void BackMenu() 
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
     public void ExitGame()
     {
         Application.Quit();

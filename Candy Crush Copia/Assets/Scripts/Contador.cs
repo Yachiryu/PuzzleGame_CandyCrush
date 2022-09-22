@@ -13,12 +13,12 @@ public class Contador : MonoBehaviour
     private float restantes;
     public bool enMarcha;
 
-    private void Awake()
+    public void Awake()
     {
         restantes = (minutos * 60) + segundos;
     }
 
-    private void Update()
+    public void Update()
     {
         if (enMarcha)
         {
