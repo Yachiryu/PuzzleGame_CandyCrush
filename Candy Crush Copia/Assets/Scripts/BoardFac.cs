@@ -17,24 +17,49 @@ public class BoardFac : MonoBehaviour
     public float swapTime = .3f; // swapTime
     
     public Tile[,] board; // m_allTiles
-    public GamePiece[,] gamePiece; //m_allGamePieces 
+    public GamePiece1[,] gamePiece; // m_allGamePieces 
 
     public Tile inicial; // m_clickedTile
     public Tile final; // m_TargetTile
 
     public bool puedeMover = true; // m_playerInputEnabled
 
+    Transform tileParent;
+    Transform gamepieceParent;
+
     public Camera camara;
 
     private void Start()
     {
-        gamePiece = new GamePiece[ancho, alto]; //m_allTiles
+        SetParents();
+
+        board = new Tile [ancho, alto]; // m_allTiles
+        gamePiece = new GamePiece[ancho, alto]; // m_allGamePieces
 
         CrearBoard();
         OrganizarCamara(); // setUpCamera
         LlenarMatriz();
-        ResaltarCoincidencias();
+        
+        //ResaltarCoincidencias();
     }
+
+    void SetParents()
+    {
+        if (tileParent == null)
+        {
+            tileParent = new GameObject().transform;
+            tileParent.name = "Tiles"; // Cambiar nombre
+            tileParent.parent = this.transform;
+        }
+
+        if (gamepieceParent == null)
+        {
+            gamepieceParent = new GameObject().transform;
+            gamepieceParent.name = "Gamepieces";
+            gamepieceParent = this.transform;
+        }
+    }
+
     void OrganizarCamara() // setUpCamera
     {
         Camera.main.transform.position = new Vector3((float)(ancho - 1) / 2f, (float)(alto - 1) / 2f, -10f);
@@ -46,22 +71,22 @@ public class BoardFac : MonoBehaviour
     }
 
 
-    void CrearBoard()
+    void CrearBoard() // SetUpTiles
     {
-        board = new Tile[ancho, alto];
-
         for (int i = 0; i < ancho; i++)
         {
             for (int j = 0; j < alto; j++)
             {
-                GameObject go = Instantiate(prefTile);
-                go.name = "Tile(" + i + ", " + j + ")";
-                go.transform.position = new Vector3(i, j, 0);
-                go.transform.parent = transform;
-                Tile tile = go.GetComponent<Tile>();
-                tile.board = this;
-                board[i, j] = tile;
-                tile.Incializar(i, j);
+                GameObject tile = Instantiate(prefTile, new Vector2(i, j), Quaternion.identity);
+                tile.name = $"Tile({i},{j})";
+                
+                if (tileParent !=null)
+                {
+                    tile.transform.parent = tileParent;
+                }
+
+                board[i, j] = tile.GetComponent<Tile>();
+                //board[i, j].(i, j, this);
             }
         }
     }
