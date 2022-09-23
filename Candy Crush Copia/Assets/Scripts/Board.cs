@@ -6,82 +6,185 @@ using TMPro;
 
 public class Board : MonoBehaviour
 {
-    //Score
-    public static int scoreValue = 0;
-    public TMP_Text score;
-    private string scoreEnPantalla;
-    public string scoreFinal;
-    public int points = 10;
+    public int ancho; //width
+    public int alto; // height
 
+    public int tamanoBorde; // borderSize
 
-    //Tablero UI
-    public int alto;
-    public int ancho;
-    public int borde;
-    public Tile[,] board;
-    public Camera camara;
-    public GameObject prefTile;
-
-    //Fichas
-    public GamePiece[,] gamePiece;
-    public GameObject[] prefFichas;
-
-    public float swapTime;
-    [Range(0f ,.5f)]
+    public GameObject prefTile; //tilePrefab
+    public GameObject[] prefFichas; // gamepiecesPrefab
     
-    public Tile inicial;
-    public Tile final;
+    public float swapTime = .3f; // swapTime
+    
+    public Tile[,] board; // m_allTiles
+    public GamePiece[,] gamePiece; // m_allGamePieces 
 
-    public bool puedeMover = true;
+    public Tile initialTile; // m_clickedTile
+    public Tile finalTile; // m_TargetTile
+
+    public bool puedeMover = true; // m_playerInputEnabled
+
+    Transform tileParent;
+    Transform gamepieceParent;
+
+    // public Camera camara;
 
     private void Start()
     {
-        gamePiece = new GamePiece[ancho, alto];
-        CrearBoard();
-        OrganizarCamara();
-        LlenarMatriz();
-        ResaltarCoincidencias();
+        SetParents();
+
+        board = new Tile [ancho, alto]; // m_allTiles
+        gamePiece = new GamePiece[ancho, alto]; // m_allGamePieces
+
+        CrearBoard(); // SetupTiles
+        OrganizarCamara(); // setUpCamera
+        LlenarMatriz(10, .5f); // Fill Board
         
+        // ResaltarCoincidencias();
     }
 
-    public void Score(int points)
+    void SetParents()
     {
-        scoreValue += points;
-        scoreEnPantalla = "Score" + ":" + scoreValue;
-        score.text = scoreEnPantalla;
+        if (tileParent == null)
+        {
+            tileParent = new GameObject().transform;
+            tileParent.name = "Tiles"; // Cambiar nombre
+            tileParent.parent = this.transform;
+        }
 
-        scoreFinal = score.text;
+        if (gamepieceParent == null)
+        {
+            gamepieceParent = new GameObject().transform;
+            gamepieceParent.name = "Gamepieces";
+            gamepieceParent = this.transform;
+        }
     }
 
-    void CrearBoard()
+    void OrganizarCamara() // setUpCamera
     {
-        board = new Tile[ancho, alto];
+        Camera.main.transform.position = new Vector3((float)(ancho - 1) / 2f, (float)(alto - 1) / 2f, -10f);
+
+        float aspectRatio = (float)Screen.width / (float)Screen.height;
+        float verticalSize = (float) alto / 2f + (float)tamanoBorde;
+        float horizontalSize = ((float)ancho / 2f + (float)tamanoBorde) / aspectRatio;
+        Camera.main.orthographicSize = verticalSize > horizontalSize ? verticalSize : horizontalSize;
+    }
+
+
+    void CrearBoard() // SetUpTiles
+    {
+        for (int i = 0; i < ancho; i++)
+        {
+            for (int j = 0; j < alto; j++)
+            {
+                GameObject tile = Instantiate(prefTile, new Vector2(i, j), Quaternion.identity);
+                tile.name = $"Tile({i},{j})";
+                
+                if (tileParent != null)
+                {
+                    tile.transform.parent = tileParent;
+                }
+
+                board[i, j] = tile.GetComponent<Tile>();
+                board[i, j].Incializar(i, j, this);
+            }
+        }
+    }
+
+    void LlenarMatriz(int falseOffset = 0, float moveTime = .1f) // FillBoard
+    {
+        List<GamePiece> addedPieces = new List<GamePiece>();
 
         for (int i = 0; i < ancho; i++)
         {
             for (int j = 0; j < alto; j++)
             {
-                GameObject go = Instantiate(prefTile);
-                go.name = "Tile(" + i + ", " + j + ")";
-                go.transform.position = new Vector3(i, j, 0);
-                go.transform.parent = transform;
-                Tile tile = go.GetComponent<Tile>();
-                tile.board = this;
-                board[i, j] = tile;
-                tile.Incializar(i, j);
+                if (gamePiece[i,j] == null)
+                {
+                    if (falseOffset == 0)
+                    {
+                        GamePiece piece = LlenarMatrizAleatoriaEn(i, j);
+                        addedPieces.Add(piece);
+                    }
+
+                    else
+                    {
+                       GamePiece piece = LlenarMatrizAleatoriaEn(i, j, falseOffset, moveTime);
+                        addedPieces.Add(piece);
+                    }
+                }
             }
+        }
+
+        int interaccionesMaximas = 20; // maxIterations
+        int interacciones = 0; // iterations
+
+        
+        bool estaLlena = false; // isFilled
+        
+        while (!estaLlena)
+        {
+            List<GamePiece> matches = EncontrarTodaslasCoincidencias(); // EncontrarTodasLasCoincidencias = FindAllMatcehs
+
+            if (matches.Count == 0)
+            {
+                estaLlena = true;
+                break;
+            }
+            else
+            {
+                matches = matches.Intersect(addedPieces).ToList();
+                
+                if (falseOffset == 0)
+                {
+                    ReemplazarConPiezaAleatoria(matches); // ReemplazarConPiezaAleatoria = ReplaceWithRandom???
+                }
+                else
+                {
+                    ReemplazarConPiezaAleatoria(matches, falseOffset, moveTime);
+                }
+            }
+
+            if (interacciones > interaccionesMaximas )
+            {
+                estaLlena = true;
+                Debug.LogWarning($"Board.FillBoard alcanzo el maximo de interacciones");
+            }
+
+            interacciones++;
+           
+        }
+    }
+    public void InitialTile(Tile tile) // ClickedTile
+    {
+        if (initialTile == null)
+        {
+            initialTile = tile;
         }
     }
 
-    void OrganizarCamara()
+    public void SetFinalTile(Tile tile) // DragToTile
     {
-        camara.transform.position = new Vector3(((float)ancho / 2) - .5f, (((float)alto / 2)) - .5f, -10);
+        if (initialTile != null && EsVecino (tile , initialTile)) // EsVecino = IsNexTo
+        {
+            finalTile = tile;
+        }
+    }
 
-        float aspectRatio = (float)Screen.width / (float)Screen.height;
-        float sizeY = ((float)alto / 2f) + borde;
-        float sizeX = (((float)ancho / 2) + borde) / aspectRatio;
+    public void ReleaseTile()
+    {
+        if (initialTile != null && finalTile != null)
+        {
+            SwitchPieces(initialTile, finalTile); // SwitchPieces = SwitchTile
+        }
 
-        camara.orthographicSize = sizeY > sizeX ? sizeY : sizeX;
+        initialTile = null;
+        finalTile = null;
+    }
+
+    public void SwitchPieces(Tile initialTile, Tile finalTile) // SwitchTiles
+    {
+        StartCoroutine(SwitchTileCourutine(initialTile, finalTile));
     }
 
     GameObject PiezaAleatoria()
@@ -99,48 +202,6 @@ public class Board : MonoBehaviour
         gamePiece[x, y] = gp;
     }
 
-    void LlenarMatriz()
-    {
-        List<GamePiece> addedPieces = new List<GamePiece>();
-
-        for (int x = 0; x < ancho; x++)
-        {
-            for (int y = 0; y < alto; y++)
-            {
-                if (gamePiece[x,y] == null)
-                {
-                    GamePiece gameP = LlenarMatrizAleatoriaEn(x, y);
-                    addedPieces.Add(gameP);
-                }
-            }
-        }
-
-        bool estaLlena = false;
-        int interacciones = 0;
-        int interaccionesMaximas = 100;
-
-        while (!estaLlena)
-        {
-            List<GamePiece> coincidencias = EncontrarTodaslasCoincidencias();
-
-            if (coincidencias.Count == 0)
-            {
-                estaLlena = true;
-                break;
-            }
-            else
-            {
-                coincidencias = coincidencias.Intersect(addedPieces).ToList();
-                ReemplazarConPiezaAleatoria(coincidencias);
-            }
-            if (interacciones > interaccionesMaximas)
-            {
-                estaLlena = true;
-                Debug.LogWarning("Se alcanzó el número máximo de interacciones");
-            }
-            interacciones++;
-        }
-    }
     private void ReemplazarConPiezaAleatoria(List<GamePiece> coincidencias)
     {
         foreach (GamePiece gamePiece in coincidencias)
@@ -157,37 +218,7 @@ public class Board : MonoBehaviour
         return go.GetComponent<GamePiece>();
     }
 
-    public void InitialTile(Tile ini)
-    {
-        if (inicial == null)
-        {
-             inicial = ini;
-        }
-    }
-
-    public void SetFinalTile(Tile fin)
-    {
-        if (inicial != null && EsVecino(inicial, fin) == true)
-        {
-            final = fin;
-        }
-    }
-
-    public void ReleaseTile()
-    {
-        if (inicial != null && final != null)
-        {
-            SwitchPieces(inicial, final);
-        }
-
-        inicial = null;
-        final = null;
-    }
-
-    public void SwitchPieces(Tile inicial2, Tile final2)
-    {
-        StartCoroutine(SwitchTileCourutine(inicial2, final2));
-    }
+  
 
     IEnumerator SwitchTileCourutine(Tile inicial2, Tile final2)
     {
@@ -219,7 +250,7 @@ public class Board : MonoBehaviour
                 else
                 {
                     listaPiezaInicial = listaPiezaInicial.Union(listaPiezaFinal).ToList();
-                    Score(points);
+                    //Score(points);
                     ClearAndRefillBoard(listaPiezaInicial);
                 }
 
@@ -571,5 +602,21 @@ public class Board : MonoBehaviour
         }
         return true;
     }
+
+    /*Score
+    public static int scoreValue = 0;
+    public TMP_Text score;
+    private string scoreEnPantalla;
+    public string scoreFinal;
+    public int points = 10;*/
+
+    /* public void Score(int points)
+    {
+        scoreValue += points;
+        scoreEnPantalla = "Score" + ":" + scoreValue;
+        score.text = scoreEnPantalla;
+
+        scoreFinal = score.text;
+    }*/
 }
 

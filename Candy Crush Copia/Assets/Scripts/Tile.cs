@@ -1,37 +1,35 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public int indiceX;
-    public int indiceY;
+    public int indiceX; // xindex
+    public int indiceY; // yIndex
 
-    Tile inicial;
-    Tile final;
-
-    public Board board;
+    Board m_board; // m_board
 
 
-    public void Incializar(int x, int y)
+    public void Incializar(int x, int y, Board board) // Init
     {
         indiceX = x;
         indiceY = y;
+        m_board = board;
     }
 
-    public void OnMouseDown()
-    {
-        board.InitialTile(this);
-    }
 
     public void OnMouseEnter()
     {
-        board.SetFinalTile(this);
+        m_board.SetFinalTile(this); // DragToTile
+    }
+    public void OnMouseDown()
+    {
+        m_board.InitialTile(this); // ClickedTile
     }
 
     public void OnMouseUp()
     {
-        board.ReleaseTile();
+        m_board.ReleaseTile();
     }
 
 }
