@@ -17,7 +17,7 @@ public class Board : MonoBehaviour
     public float swapTime = .3f; // swapTime
     
     public Tile[,] board; // m_allTiles
-    public GamePiece[,] gamePiece; // m_allGamePieces 
+    public GamePiece[,] gamePieces; // m_allGamePieces 
 
     public Tile initialTile; // m_clickedTile
     public Tile finalTile; // m_TargetTile
@@ -34,7 +34,7 @@ public class Board : MonoBehaviour
         SetParents();
 
         board = new Tile [ancho, alto]; // m_allTiles
-        gamePiece = new GamePiece[ancho, alto]; // m_allGamePieces
+        gamePieces = new GamePiece[ancho, alto]; // m_allGamePieces
 
         CrearBoard(); // SetupTiles
         OrganizarCamara(); // setUpCamera
@@ -99,11 +99,11 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < alto; j++)
             {
-                if (gamePiece[i,j] == null)
+                if (gamePieces[i,j] == null)
                 {
                     if (falseOffset == 0)
                     {
-                        GamePiece piece = LlenarMatrizAleatoriaEn(i, j); // LlenarMatrizAleatoriaEn = FillRandomAt???
+                        GamePiece piece = LlenarMatrizAleatoriaEn(i, j); // LlenarMatrizAleatoriaEn = FillRandomAt
                         addedPieces.Add(piece);
                     }
 
@@ -193,8 +193,8 @@ public class Board : MonoBehaviour
         {
             puedeMover = false;
 
-            GamePiece gpInicial = gamePiece[initialTile.indiceX, initialTile.indiceY]; // gpInicial = clickedPiece
-            GamePiece gpFinal = gamePiece[finalTile.indiceX, finalTile.indiceY]; // gpFinal = targetPiece
+            GamePiece gpInicial = gamePieces[initialTile.indiceX, initialTile.indiceY]; // gpInicial = clickedPiece
+            GamePiece gpFinal = gamePieces[finalTile.indiceX, finalTile.indiceY]; // gpFinal = targetPiece
 
             if (gpInicial != null && gpFinal != null)
             {
@@ -237,9 +237,9 @@ public class Board : MonoBehaviour
         List<GamePiece> matches = new List<GamePiece>();
         GamePiece piezaInicial = null; // piezaInicial = startPiece
 
-        if (EstaEnRango(startX, startY)) // EstaEnRango = IsWithBounds????
+        if (EstaEnRango(startX, startY)) // EstaEnRango = IsWithBounds
         {
-            piezaInicial = gamePiece[startX, startY];
+            piezaInicial = gamePieces[startX, startY];
         }
         if (piezaInicial != null)
         {
@@ -265,7 +265,7 @@ public class Board : MonoBehaviour
                 break;
             }
 
-            GamePiece siguientepieza = gamePiece[siguienteX, siguienteY];
+            GamePiece siguientepieza = gamePieces[siguienteX, siguienteY];
 
             if (siguientepieza == null)
             {
@@ -441,10 +441,10 @@ public class Board : MonoBehaviour
 
     private void ClearPieceAt(int x, int y)
     {
-        GamePiece pieceToClear = gamePiece[x, y];
+        GamePiece pieceToClear = gamePieces[x, y];
         if (pieceToClear != null)
         {
-            gamePiece[x, y] = null;
+            gamePieces[x, y] = null;
             Destroy(pieceToClear.gameObject);
         }
 
@@ -475,91 +475,97 @@ public class Board : MonoBehaviour
     GameObject PiezaAleatoria() // PiezaAleatoria = GetRandomPiece
     {
         int randomInx = Random.Range(0, prefFichas.Length);
-        GameObject go = Instantiate(prefFichas[randomInx]);
-        go.GetComponent<GamePiece>().board = this;
-        return go;
-    }
-
-
-
-
-
-
-
-
-    public void PiezaPosicion(GamePiece gp, int x, int y)
-    {
-        gp.transform.position = new Vector3(x, y, 0f);
-        gp.Coordenadas(x, y);
-        gamePiece[x, y] = gp;
-    }
-
-    private void ReemplazarConPiezaAleatoria(List<GamePiece> coincidencias)
-    {
-        foreach (GamePiece gamePiece in coincidencias)
+        if (prefFichas[randomInx] == null)
         {
-            ClearPieceAt(gamePiece.cordenadaX, gamePiece.cordenadaY);
-            LlenarMatrizAleatoriaEn(gamePiece.cordenadaX, gamePiece.cordenadaY);
+            Debug.LogWarning($"La clase Board en el array de prefabs en la posicion{randomInx} no contiene una pieza valida");
+        }
+
+        return prefFichas[randomInx];
+    }
+
+    public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
+    {
+        if (gamePiece == null)
+        {
+            Debug.LogWarning($"gamePiece invalida");
+            return;
+        }
+
+        gamePiece.transform.position = new Vector2(x, y);
+        gamePiece.transform.rotation = Quaternion.identity;
+
+        if (EstaEnRango(x, y))
+        {
+            gamePieces[x, y] = gamePiece;
+        }
+
+        gamePiece.Coordenadas(x, y);
+    }
+
+    public bool EstaEnRango(int x, int y) //EstaEnRango = IsWithBounds
+    {
+        return (x >= 0 && x < ancho && y >= 0 && y < alto);
+    }
+    GamePiece LlenarMatrizAleatoriaEn(int x, int y, int falseOffset = 0, float moveTime = .1f) // LlenarMatrizAleatoriaEn = FillRandomAt
+    {
+        GamePiece randomPiece = Instantiate(PiezaAleatoria(), Vector2.zero, Quaternion.identity).GetComponent<GamePiece>();
+
+        if (randomPiece != null)
+        {
+            randomPiece.Init(this);
+            PlaceGamePiece(randomPiece, x, y);
+           
+            if (falseOffset != 0)
+            {
+                randomPiece.transform.position = new Vector2(x, y + falseOffset);
+                randomPiece.MoverPieza(x, y, moveTime);
+            }
+            
+            randomPiece.transform.parent = gamepieceParent;
+        }
+
+        return randomPiece;
+    }
+    private void ReemplazarConPiezaAleatoria(List <GamePiece> gamePieces, int falseOffset = 0, float moveTime = .1f) // ReemplazarConPiezaAleatoria = ReplacedWithRandom
+    {
+        foreach (GamePiece piece in gamePieces)
+        {
+            ClearPieceAt(piece.cordenadaX, piece.cordenadaY);
+
+            if (falseOffset == 0)
+            {
+                LlenarMatrizAleatoriaEn(piece.cordenadaX, piece.cordenadaY);
+            }
+            else
+            {
+                LlenarMatrizAleatoriaEn(piece.cordenadaX, piece.cordenadaY, falseOffset, moveTime);
+            }
         }
     }
 
-    GamePiece LlenarMatrizAleatoriaEn(int x, int y)
-    {
-        GameObject go = PiezaAleatoria();
-        PiezaPosicion(go.GetComponent<GamePiece>(), x, y);
-        return go.GetComponent<GamePiece>();
-    }
-
-  
-
-    
-
-   
-
-    public bool EstaEnRango(int x, int y) //EstaEnRango = IsWithBounds????
-    {
-        return (x < ancho && x >= 0 && y < alto && y >= 0);
-    }
-
-    
-   
-   
-
-    
-
-   
-   
-
-   
-   
-   
-    
-
-    
-
-   
-    List<GamePiece> CollapseColumn(int column, float collapseTime = 0.1f)
+    List<GamePiece> CollapseColumn(int column, float collapseTime = .1f)
     {
         List<GamePiece> movingPieces = new List<GamePiece>();
 
-        for (int i = 0; i < alto -1; i++)
+        for (int i = 0; i < alto - 1; i++)
         {
-            if (gamePiece[column, i] == null)
+            if (gamePieces[column, i] == null)
             {
-                for (int j = i + 1 ; j < alto; j++)
+                for (int j = i + 1; j < alto; j++)
                 {
-                    if (gamePiece[column, j] != null)
+                    if (gamePieces[column, j] != null)
                     {
-                        gamePiece[column, j].MoverPieza(column,i,collapseTime);
-                        gamePiece[column, i] = gamePiece[column, j];
-                        gamePiece[column, j].Coordenadas(column, i);
+                        gamePieces[column, j].MoverPieza(column, i, collapseTime * (j - 1));
 
-                        if (!movingPieces.Contains(gamePiece[column,i]))
+                        gamePieces[column, i] = gamePieces[column, j];
+                        gamePieces[column, i].Coordenadas(column, i);
+
+                        if (!movingPieces.Contains(gamePieces[column, i]))
                         {
-                            movingPieces.Add(gamePiece[column, i]);
+                            movingPieces.Add(gamePieces[column, i]);
                         }
 
-                        gamePiece[column, j] = null;
+                        gamePieces[column, j] = null;
                         break;
                     }
                 }
@@ -571,15 +577,14 @@ public class Board : MonoBehaviour
     List<GamePiece> CollapseColumn(List<GamePiece> gamePieces)
     {
         List<GamePiece> movingPieces = new List<GamePiece>();
-        List<int> collumnToCollapse = GetCollumns(gamePieces);
+        List<int> collumnsToCollapse = GetCollumns(gamePieces);
 
-        foreach (int collumn in collumnToCollapse)
+        foreach (int column in collumnsToCollapse)
         {
-            movingPieces = movingPieces.Union(CollapseColumn(collumn)).ToList();
+            movingPieces = movingPieces.Union(CollapseColumn(column)).ToList();
         }
         return movingPieces;
     }
-
     List<int> GetCollumns(List<GamePiece> gamePieces)
     {
         List<int> collumnIndex = new List<int>();
@@ -593,6 +598,58 @@ public class Board : MonoBehaviour
         }
         return collumnIndex;
     }
+
+    /*void ClearAndRefillBoard(List<GamePiece> game)
+    {
+
+    }*/
+
+
+
+
+
+
+
+
+
+    public void PiezaPosicion(GamePiece gp, int x, int y)
+    {
+        gp.transform.position = new Vector3(x, y, 0f);
+        gp.Coordenadas(x, y);
+        gamePieces[x, y] = gp;
+    }
+
+   
+   
+
+  
+
+    
+
+   
+
+
+    
+   
+   
+
+    
+
+   
+   
+
+   
+   
+   
+    
+
+    
+
+   
+    
+
+   
+
 
 
     IEnumerator ClearAndRefillBoardRoutine(List<GamePiece> gamePieces)

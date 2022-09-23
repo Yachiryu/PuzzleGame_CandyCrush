@@ -17,7 +17,7 @@ public class GamePiece : MonoBehaviour
     // public float tiempoMovimiento2;
    // public AnimationCurve curve;
 
-    internal void Coordenadas(int x , int y) // setCoord
+    public void Coordenadas(int x , int y) // setCoord
     {
         cordenadaX = x;
         cordenadaY = y;
