@@ -10,6 +10,8 @@ public class Puntaje : MonoBehaviour
     private int puntajeAlmacenado;
     private TextMeshProUGUI textMesh;
 
+    SceneManagement sceneManagement;
+
     private void Start()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
@@ -23,5 +25,12 @@ public class Puntaje : MonoBehaviour
     public void SumatoriaPuntos(int puntosEntrada)
     {
         puntos += puntosEntrada;
+
+        if (puntos >= 500)
+        {
+            sceneManagement.ExitGame();
+        }
     }
+
+
 }

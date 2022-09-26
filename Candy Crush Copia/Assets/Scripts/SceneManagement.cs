@@ -5,11 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    public void StartGame()
-    {
-        SceneManager.LoadScene("Juego Principal");
-    } 
-
     public void MainMenu() 
     {
         SceneManager.LoadScene("Main Menu");
@@ -18,6 +13,10 @@ public class SceneManagement : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Saliendo...");
+    } 
+    public void YouWin()
+    {
+        SceneManager.LoadScene("You_Win"); 
     }
 
     public void SelectLevel()
@@ -46,9 +45,5 @@ public class SceneManagement : MonoBehaviour
     {
         SceneManager.LoadScene("Nivel_5");
     }
-
-
-
-
 
 }

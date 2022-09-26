@@ -593,7 +593,7 @@ public class Board : MonoBehaviour
             {
                 if (matches.Count == 3)
                 {
-                    int cantidadPuntos = 3;
+                    int cantidadPuntos = 1;
                     m_puntaje.SumatoriaPuntos(cantidadPuntos);
                 }
 
