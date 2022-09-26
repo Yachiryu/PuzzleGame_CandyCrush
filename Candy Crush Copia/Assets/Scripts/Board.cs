@@ -16,6 +16,8 @@ public class Board : MonoBehaviour
 
     public float swapTime = .3f; //
 
+    public Puntaje m_puntaje;
+
     Tile[,] m_allTiles; //
     GamePiece[,] m_allGamePieces; //
 
@@ -580,10 +582,6 @@ public class Board : MonoBehaviour
         return collumns; //
     }
 
-    /*void ClearAndRefillBoard(List<GamePiece> gamePieces)
-    {
-            REVISAR FOTO 11 !!!!!!
-    }*/
     IEnumerator ClearAndRefillRoutine(List<GamePiece> gamePieces) //
     {
         m_playerInputEnabled = true; //
@@ -591,12 +589,37 @@ public class Board : MonoBehaviour
 
         do
         {
+            foreach (GamePiece piece in matches)
+            {
+                if (matches.Count == 3)
+                {
+                    int cantidadPuntos = 3;
+                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
+                }
+
+                if (matches.Count == 4)
+                {
+                    int cantidadPuntos = 2;
+                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
+                }
+
+                if (matches.Count == 5)
+                {
+                    int cantidadPuntos = 3;
+                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
+                }
+
+                if (matches.Count >= 6)
+                {
+                    int cantidadPuntos = 4;
+                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
+                }
+            }
             yield return StartCoroutine(ClearAndCollapseRoutine(matches)); //
             yield return null; //
             yield return StartCoroutine(RefillRoutine()); //
             matches = FindAllMatches(); //
             yield return new WaitForSeconds(.5f); // 
-
         } 
         while (matches.Count != 0); //
         m_playerInputEnabled = true; //
@@ -658,22 +681,5 @@ public class Board : MonoBehaviour
     }
 
 }
- 
-
-    /*Score
-    public static int scoreValue = 0;
-    public TMP_Text score;
-    private string scoreEnPantalla;
-    public string scoreFinal;
-    public int points = 10;*/
-
-    /* public void Score(int points)
-    {
-        scoreValue += points;
-        scoreEnPantalla = "Score" + ":" + scoreValue;
-        score.text = scoreEnPantalla;
-
-        scoreFinal = score.text;
-    }*/
 
 
