@@ -4,61 +4,57 @@ using UnityEngine;
 
 public class GamePiece : MonoBehaviour
 {
-    public int cordenadaX; // xIndex
-    public int cordenadaY; // yIndex
-    
-    public Board boardFac; // m_board
-    
-    public bool yaSeEjecuto = false; // m_isMoving
+    public int xIndex;
+    public int yIndex;
+
+    Board m_board;
+
+    public bool m_isMoving = false; // Devolverlo a private
     
     public TipoMovimiento tipoDeMovimiento; // Interpolation
     public TipoFicha tipoFicha; // MatchValue
 
-    // public float tiempoMovimiento2;
-   // public AnimationCurve curve;
-
-    public void Coordenadas(int x , int y) // setCoord
+    public void SetCoord(int x , int y)
     {
-        cordenadaX = x;
-        cordenadaY = y;
+        xIndex = x;
+        yIndex = y;
     }
 
-    internal void Init(Board board)
+    public void Init(Board board)
     {
-        boardFac = board;
+        m_board = board;
     }
 
-
-    internal void MoverPieza(int x,int y, float tiempoMovimiento) // Move
+    public void Move(int x, int y, float moveTime)
     {
-        if (!yaSeEjecuto)
+        if (!m_isMoving)
         {
-            StartCoroutine(MovePiece(x, y, tiempoMovimiento));
+            StartCoroutine(MoveRoutine(x, y, moveTime));
         }
     }
 
-    IEnumerator MovePiece(int destX, int destY, float timeToMove) // MoveRoutine
+    IEnumerator MoveRoutine(int destX, int destY, float timeToMove)
     {
         Vector2 startPosition = transform.position;
-        bool alcanzoElDestino = false; // reacedDestination
-        float tiempoTomado = 0f; // elapsedTime
-        yaSeEjecuto = true;
+        bool reacedDestination = false;
+        float elapsedTime = 0f;
+        m_isMoving = true;
 
-        while (!alcanzoElDestino)
+        while (!reacedDestination)
         {
             if (Vector2.Distance(transform.position, new Vector2(destX, destY)) < 0.01f)
             {
-                alcanzoElDestino = true;
+                reacedDestination = true;
 
-                if (boardFac != null)
+                if (m_board != null)
                 {
-                    boardFac.PlaceGamePiece(this, destX, destY);
+                    m_board.PlaceGamePiece(this, destX, destY);
                 }
                 break;
             }
 
-            tiempoTomado += Time.deltaTime;
-            float t = Mathf.Clamp(tiempoTomado / timeToMove, 0f, 1f);
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp(elapsedTime / timeToMove, 0f, 1f);
 
             switch (tipoDeMovimiento) // Interpolation
             {
@@ -67,7 +63,7 @@ public class GamePiece : MonoBehaviour
                     break;
 
                 case TipoMovimiento.EaseOut:
-                    t = Mathf.Sin(t * Mathf.PI * .5F);
+                    t = Mathf.Sin(t * Mathf.PI * .5f);
                     break;
 
                 case TipoMovimiento.EseIn:
@@ -86,8 +82,7 @@ public class GamePiece : MonoBehaviour
             transform.position = Vector2.Lerp(startPosition, new Vector2(destX, destY), t);
             yield return null;
         }
-
-        yaSeEjecuto = false;
+        m_isMoving = false;
 
     }
     public enum TipoMovimiento // InterType

@@ -26,7 +26,8 @@ public class Contador : MonoBehaviour
 
             if (restantes < 1)
             {
-                SceneManager.LoadScene("Game_Over");
+                //SceneManager.LoadScene("Game_Over");
+                Debug.Log("Perdiste");
             }
 
             int tempMin = Mathf.FloorToInt(restantes / 60);

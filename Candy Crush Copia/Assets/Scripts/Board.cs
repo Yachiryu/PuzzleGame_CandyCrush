@@ -6,220 +6,209 @@ using TMPro;
 
 public class Board : MonoBehaviour
 {
-    public int ancho; //width
-    public int alto; // height
+    public int width; //
+    public int height; //
 
-    public int tamanoBorde; // borderSize
+    public int borderSize; //
 
-    public GameObject prefTile; //tilePrefab
-    public GameObject[] prefFichas; // gamepiecesPrefab
-    
-    public float swapTime = .3f; // swapTime
-    
-    public Tile[,] board; // m_allTiles
-    public GamePiece[,] gamePieces; // m_allGamePieces 
+    public GameObject tilePrefab; //
+    public GameObject[] gamePiecesPrefabs; //
 
-    public Tile initialTile; // m_clickedTile
-    public Tile finalTile; // m_TargetTile
+    public float swapTime = .3f; //
 
-    public bool puedeMover = true; // m_playerInputEnabled
+    Tile[,] m_allTiles; //
+    GamePiece[,] m_allGamePieces; //
 
-    Transform tileParent;
-    Transform gamepieceParent;
 
-    // public Camera camara;
+    [SerializeField] Tile m_clickedTile; //
+    [SerializeField] Tile m_targetTile; //
+
+    bool m_playerInputEnabled = true; //
+
+    Transform tileParent; //
+    Transform gamePieceParent; // 
 
     private void Start()
     {
-        SetParents();
+        SetParents(); //
 
-        board = new Tile [ancho, alto]; // m_allTiles
-        gamePieces = new GamePiece[ancho, alto]; // m_allGamePieces
+        m_allTiles = new Tile[width, height];//
+        m_allGamePieces = new GamePiece[width, height]; //
 
-        CrearBoard(); // SetupTiles
-        OrganizarCamara(); // setUpCamera
-        LlenarMatriz(10, .5f); // Fill Board
-        
-        // ResaltarCoincidencias();
+        SetupTiles(); // 
+        SetupCamera(); // 
+        FillBoard(10, .5f); // Fill Board ///
     }
 
-    void SetParents()
+    void SetParents() //
     {
-        if (tileParent == null)
+        if (tileParent == null) // 
         {
-            tileParent = new GameObject().transform;
-            tileParent.name = "Tiles"; // Cambiar nombre
+            tileParent = new GameObject().transform; // 
+            tileParent.name = "Tiles"; // Cambiar nombre //
             tileParent.parent = this.transform;
         }
 
-        if (gamepieceParent == null)
+        if (gamePieceParent == null) //
         {
-            gamepieceParent = new GameObject().transform;
-            gamepieceParent.name = "Gamepieces";
-            gamepieceParent = this.transform;
+            gamePieceParent = new GameObject().transform; //
+            gamePieceParent.name = "GamePieces"; //
+            gamePieceParent = this.transform;
         }
     }
 
-    void OrganizarCamara() // setUpCamera
+    void SetupCamera() // 
     {
-        Camera.main.transform.position = new Vector3((float)(ancho - 1) / 2f, (float)(alto - 1) / 2f, -10f);
+        Camera.main.transform.position = new Vector3((float)(width - 1) / 2f, (float)(height - 1) / 2f, -10f); //
 
-        float aspectRatio = (float)Screen.width / (float)Screen.height;
-        float verticalSize = (float) alto / 2f + (float)tamanoBorde;
-        float horizontalSize = ((float)ancho / 2f + (float)tamanoBorde) / aspectRatio;
-        Camera.main.orthographicSize = verticalSize > horizontalSize ? verticalSize : horizontalSize;
+        float aspectRatio = (float)Screen.width / (float)Screen.height; //
+        float verticalSize = (float)height / 2f + (float)borderSize; //
+        float horizontalSize = ((float)width / 2f + (float)borderSize) / aspectRatio; //
+        Camera.main.orthographicSize = verticalSize > horizontalSize ? verticalSize : horizontalSize; //
     }
 
 
-    void CrearBoard() // SetUpTiles
+    void SetupTiles() //
     {
-        for (int i = 0; i < ancho; i++)
+        for (int i = 0; i < width; i++) //
         {
-            for (int j = 0; j < alto; j++)
+            for (int j = 0; j < height; j++) //
             {
-                GameObject tile = Instantiate(prefTile, new Vector2(i, j), Quaternion.identity);
-                tile.name = $"Tile({i},{j})";
-                
-                if (tileParent != null)
+                GameObject tile = Instantiate(tilePrefab, new Vector2(i, j), Quaternion.identity); //
+                tile.name = $"Tile({i},{j})"; //
+
+                if (tileParent != null) //
                 {
-                    tile.transform.parent = tileParent;
+                    tile.transform.parent = tileParent; // 
                 }
 
-                board[i, j] = tile.GetComponent<Tile>();
-                board[i, j].Incializar(i, j, this);
+                m_allTiles[i, j] = tile.GetComponent<Tile>(); //
+                m_allTiles[i, j].Init(i, j, this); //
             }
         }
     }
 
-    void LlenarMatriz(int falseOffset = 0, float moveTime = .1f) // FillBoard
+    void FillBoard(int falseOffset = 0, float moveTime = .1f) // 
     {
-        List<GamePiece> addedPieces = new List<GamePiece>();
+        List<GamePiece> addedPieces = new List<GamePiece>(); //
 
-        for (int i = 0; i < ancho; i++)
+        for (int i = 0; i < width; i++) // 
         {
-            for (int j = 0; j < alto; j++)
+            for (int j = 0; j < height; j++)
             {
-                if (gamePieces[i,j] == null)
+                if (m_allGamePieces[i, j] == null)
                 {
                     if (falseOffset == 0)
                     {
-                        GamePiece piece = LlenarMatrizAleatoriaEn(i, j); // LlenarMatrizAleatoriaEn = FillRandomAt
-                        addedPieces.Add(piece);
+                        GamePiece piece = FillRandomAt(i, j); // FillRandomAt = LlenarMatrizAleatoriaEn ///
+                        addedPieces.Add(piece); //
                     }
-
                     else
                     {
-                       GamePiece piece = LlenarMatrizAleatoriaEn(i, j, falseOffset, moveTime);
-                        addedPieces.Add(piece);
+                        GamePiece piece = FillRandomAt(i, j, falseOffset, moveTime); //
+                        addedPieces.Add(piece); //
                     }
                 }
             }
         }
 
-        int interaccionesMaximas = 20; // maxIterations
-        int interacciones = 0; // iterations
+        int maxIterations = 20; // 
+        int iterations = 0; //
 
-        
-        bool estaLlena = false; // isFilled
-        
-        while (!estaLlena)
+
+        bool isFilled = false; //
+
+        while (!isFilled) //
         {
-            List<GamePiece> matches = EncontrarTodaslasCoincidencias(); // EncontrarTodasLasCoincidencias = FindAllMatches
+            List<GamePiece> matches = FindAllMatches(); // FindAllMatches = EncontrarTodasLasCoincidencias ///
 
-            if (matches.Count == 0)
+            if (matches.Count == 0) //
             {
-                estaLlena = true;
-                break;
+                isFilled = true; //
+                break; //
             }
             else
             {
-                matches = matches.Intersect(addedPieces).ToList();
-                
+                matches = matches.Intersect(addedPieces).ToList(); //
+
                 if (falseOffset == 0)
                 {
-                    ReemplazarConPiezaAleatoria(matches); // ReemplazarConPiezaAleatoria = ReplaceWithRandom???
+                    ReplaceWithRandom(matches); // ReplaceWithRandom = ReemplazarConPiezaAleatoria ///
                 }
                 else
                 {
-                    ReemplazarConPiezaAleatoria(matches, falseOffset, moveTime);
+                    ReplaceWithRandom(matches, falseOffset, moveTime); ///
                 }
             }
 
-            if (interacciones > interaccionesMaximas )
+            if (iterations > maxIterations) //
             {
-                estaLlena = true;
-                Debug.LogWarning($"Board.FillBoard alcanzo el maximo de interacciones");
+                isFilled = true; //
+                Debug.LogWarning($"Board.FillBoard alcanzo el maximo de interacciones"); //
             }
-
-            interacciones++;
-           
+            iterations++;
         }
     }
-    public void InitialTile(Tile tile) // ClickedTile
+    public void ClickedTile(Tile tile) // 
     {
-        if (initialTile == null)
+        if (m_clickedTile == null)
         {
-            initialTile = tile;
-        }
-    }
-
-    public void SetFinalTile(Tile tile) // DragToTile
-    {
-        if (initialTile != null && EsVecino (tile , initialTile)) // EsVecino = IsNexTo 
-        {
-            finalTile = tile;
+            m_clickedTile = tile;
         }
     }
 
-    public void ReleaseTile()
+    public void DragToTile(Tile tile) // 
     {
-        if (initialTile != null && finalTile != null)
+        if (m_clickedTile != null && IsNextTo(tile, m_clickedTile)) // IsNexTo = EsVecino ///
         {
-            SwitchPieces(initialTile, finalTile); // SwitchPieces = SwitchTile
+            m_targetTile = tile; //
         }
-
-        initialTile = null;
-        finalTile = null;
     }
 
-    public void SwitchPieces(Tile initialTile, Tile finalTile) // SwitchTiles
+    public void ReleaseTile() //
     {
-        StartCoroutine(SwitchTilesCourutine(initialTile, finalTile));
-    }
-
-    IEnumerator SwitchTilesCourutine(Tile initialTile, Tile finalTile) // SwitchTilesCourutine = SwitchTilesRoutine
-    {
-        if (puedeMover)
+        if (m_clickedTile != null && m_targetTile != null) //
         {
-            puedeMover = false;
+            SwitchTiles(m_clickedTile, m_targetTile); // SwitchTiles = SwitchPieces /// 
+        }
+        m_clickedTile = null; //
+        m_targetTile = null; //
+    }
 
-            GamePiece gpInicial = gamePieces[initialTile.indiceX, initialTile.indiceY]; // gpInicial = clickedPiece
-            GamePiece gpFinal = gamePieces[finalTile.indiceX, finalTile.indiceY]; // gpFinal = targetPiece
+    public void SwitchTiles(Tile m_clickedTile, Tile m_targetTile) // 
+    {
+        StartCoroutine(SwitchTilesRoutine(m_clickedTile, m_targetTile)); ///
+    }
 
-            if (gpInicial != null && gpFinal != null)
+    IEnumerator SwitchTilesRoutine(Tile clickedTile, Tile targetTile) // SwitchTilesRoutine = SwitchTilesCourutine ///
+    {
+        if (m_playerInputEnabled) //
+        {
+            GamePiece clickedPiece = m_allGamePieces[clickedTile.xIndex, clickedTile.yIndex]; //
+            GamePiece targetPiece = m_allGamePieces[targetTile.xIndex, targetTile.yIndex]; //
+
+            if (clickedPiece != null && targetPiece != null) //
             {
 
-                gpInicial.MoverPieza(finalTile.indiceX, finalTile.indiceY, swapTime);
-                gpFinal.MoverPieza(initialTile.indiceX, initialTile.indiceY, swapTime);
+                clickedPiece.Move(targetTile.xIndex, targetTile.yIndex, swapTime); //
+                targetPiece.Move(clickedPiece.xIndex, clickedPiece.yIndex, swapTime); //
 
-                yield return new WaitForSeconds(swapTime);
+                yield return new WaitForSeconds(swapTime); //
 
-                List<GamePiece> listaPiezaInicial = EncontrarCoincidenciasEn(gpInicial.cordenadaX, gpInicial.cordenadaY); // listaPiezaInicial = clickedPieceMatches
-                List<GamePiece> listaPiezaFinal = EncontrarCoincidenciasEn(gpFinal.cordenadaX, gpFinal.cordenadaY); // listaPiezaFinal = targetPieceMatches
+                List<GamePiece> clickedPieceMatches = FindMatchesAt(clickedTile.xIndex, clickedTile.yIndex); // FindMatchesAt = EncontrarCoincidenciasEn ///
+                List<GamePiece> targetPieceMatches = FindMatchesAt(targetTile.xIndex, targetTile.yIndex); // 
 
-                if (listaPiezaInicial.Count == 0 && listaPiezaFinal.Count == 0)
+                if (clickedPieceMatches.Count == 0 && targetPieceMatches.Count == 0) //
                 {
-                    gpInicial.MoverPieza(initialTile.indiceX, initialTile.indiceY, swapTime);
-                    gpFinal.MoverPieza(finalTile.indiceX, finalTile.indiceY, swapTime);
-                    yield return new WaitForSeconds(swapTime);
-                    
-                    //puedeMover = true;
+                    clickedPiece.Move(clickedTile.xIndex, clickedTile.yIndex, swapTime); //
+                    targetPiece.Move(targetTile.xIndex, targetTile.yIndex, swapTime); //
+                    yield return new WaitForSeconds(swapTime); //
                 }
                 else
                 {
-                    yield return new WaitForSeconds(swapTime);
+                    yield return new WaitForSeconds(swapTime); //
 
-                    ClearAndRefillBoard(listaPiezaFinal.Union(listaPiezaFinal).ToList());
+                    ClearAndRefillBoard(clickedPieceMatches.Union(targetPieceMatches).ToList()); //
                 }
 
             }
@@ -227,492 +216,449 @@ public class Board : MonoBehaviour
 
     }
 
-    void ClearAndRefillBoard(List<GamePiece> gamePieces)
+    void ClearAndRefillBoard(List<GamePiece> gamePieces) //
     {
-        StartCoroutine(ClearAndRefillBoardRoutine(gamePieces));
+        StartCoroutine(ClearAndRefillRoutine(gamePieces)); ///
     }
 
-    List<GamePiece> EncontrarCoincidencias(int startX, int startY, Vector2 direccionDeBusqueda, int cantidadMinima = 3) // EncontrarCoincidencias = FindMatches
+    List<GamePiece> FindMatches(int startX, int startY, Vector2 searchDirection, int minLength = 3) // FindMatches = EncontrarCoincidencias ///
     {
-        List<GamePiece> matches = new List<GamePiece>();
-        GamePiece piezaInicial = null; // piezaInicial = startPiece
+        List<GamePiece> matches = new List<GamePiece>(); //
+        GamePiece startPiece = null; // 
 
-        if (EstaEnRango(startX, startY)) // EstaEnRango = IsWithBounds
+        if (IsWithBounds(startX, startY)) // IsWithBounds = EstaEnRango ///
         {
-            piezaInicial = gamePieces[startX, startY];
+            startPiece = m_allGamePieces[startX, startY]; //
         }
-        if (piezaInicial != null)
+        if (startPiece != null) //
         {
-            matches.Add(piezaInicial);
+            matches.Add(startPiece); //
         }
         else
         {
-            return null;
+            return null; //
         }
 
-        int siguienteX;
-        int siguienteY;
+        int nextX; //
+        int nextY; //
 
-        int valorMaximo = ancho > alto ? ancho : alto; // valorMaximo = maxValue
+        int maxValue = width > height ? width : height; //
 
-        for (int i = 1; i < valorMaximo; i++)
+        for (int i = 1; i < maxValue; i++) //
         {
-            siguienteX = startX + (int)Mathf.Clamp(direccionDeBusqueda.x, -1, 1) * i;
-            siguienteY = startY + (int)Mathf.Clamp(direccionDeBusqueda.y, -1, 1) * i;
+            nextX = startX + (int)Mathf.Clamp(searchDirection.x, -1, 1) * i; //
+            nextY = startY + (int)Mathf.Clamp(searchDirection.y, -1, 1) * i; //
 
-            if (!EstaEnRango(siguienteX, siguienteY))
+            if (!IsWithBounds(nextX, nextY)) //
             {
-                break;
+                break; //
             }
 
-            GamePiece siguientepieza = gamePieces[siguienteX, siguienteY];
+            GamePiece nextPiece = m_allGamePieces[nextX, nextY]; //
 
-            if (siguientepieza == null)
+            if (nextPiece == null) //
             {
-                break;
+                break; //
             }
             else
             {
-                if (siguientepieza.tipoFicha == piezaInicial.tipoFicha && !matches.Contains(siguientepieza))
+                if (nextPiece.tipoFicha == startPiece.tipoFicha && !matches.Contains(nextPiece)) //
                 {
-                    matches.Add(siguientepieza);
+                    matches.Add(nextPiece); //
                 }
                 else
                 {
-                    break;
+                    break; //
                 }
             }
         }
 
-        if (matches.Count >= cantidadMinima)
+        if (matches.Count >= minLength) //
         {
-            return matches;
+            return matches; //
         }
         else
         {
-            return null;
+            return null; //
         }
     }
 
-    List<GamePiece> BusquedaVertical(int startX, int startY, int cantidadMinima = 3) // BusquedaVertical = FindVerticalMatches
+    List<GamePiece> FindVerticalMatches(int startX, int startY, int minLenght = 3) // FindVerticalMatches = BusquedaVertical ///
     {
-        List<GamePiece> arriba = EncontrarCoincidencias(startX, startY, Vector2.up, 2);
-        List<GamePiece> abajo = EncontrarCoincidencias(startX, startY, Vector2.down, 2);
+        List<GamePiece> upwardMatches = FindMatches(startX, startY, Vector2.up, 2); //
+        List<GamePiece> downwardMatches = FindMatches(startX, startY, Vector2.down, 2); //
 
-        if (arriba == null)
+        if (upwardMatches == null) //
         {
-            arriba = new List<GamePiece>();
+            upwardMatches = new List<GamePiece>(); //
         }
 
-        if (abajo == null)
+        if (downwardMatches == null)
         {
-            abajo = new List<GamePiece>();
+            downwardMatches = new List<GamePiece>();
         }
 
-        var listaCombinadas = arriba.Union(abajo).ToList(); // listaCombinadas = combinedMatches
-        return listaCombinadas.Count >= cantidadMinima ? listaCombinadas : null;
+        var combinedMatches = upwardMatches.Union(downwardMatches).ToList(); //
+        return combinedMatches.Count >= minLenght ? combinedMatches : null; //
     }
-    List<GamePiece> BusquedaHorizontal(int startX, int startY, int cantidadMinima = 3) // BusquedaHorizontal = FindHorizontalMatches
+    List<GamePiece> FindHorizontalMatches(int startX, int startY, int minLenght = 3) // FindHorizontalMatches = BusquedaHorizontal /// 
     {
-        List<GamePiece> derecha = EncontrarCoincidencias(startX, startY, Vector2.right, 2);
-        List<GamePiece> izquierda = EncontrarCoincidencias(startX, startY, Vector2.left, 2);
+        List<GamePiece> rightMatches = FindMatches(startX, startY, Vector2.right, 2); // 
+        List<GamePiece> leftMatches = FindMatches(startX, startY, Vector2.left, 2); //
 
-        if (izquierda == null)
+        if (rightMatches == null) //
         {
-            izquierda = new List<GamePiece>();
+            rightMatches = new List<GamePiece>(); //
         }
 
-        if (derecha == null)
+        if (leftMatches == null) //
         {
-            derecha = new List<GamePiece>();
+            leftMatches = new List<GamePiece>(); //
         }
 
-        var listaCombinadas = derecha.Union(izquierda).ToList();
-        return listaCombinadas.Count >= cantidadMinima ? listaCombinadas : null;
+        var combinedMatches = rightMatches.Union(leftMatches).ToList(); //
+        return combinedMatches.Count >= minLenght ? combinedMatches : null; //
     }
 
-    List<GamePiece> EncontrarCoincidenciasEn(int x, int y, int minLength = 3) // EncontrarCoincidenciasEn = FindMatchesAt
+    List<GamePiece> FindMatchesAt(int x, int y, int minLength = 3) // FindMatchesAt = EncontrarCoincidenciasEn ///
     {
-        List<GamePiece> horizontalmatches = BusquedaHorizontal(x, y, minLength);
-        List<GamePiece> verticalMatches = BusquedaVertical(x, y, minLength);
+        List<GamePiece> horizontalMatches = FindHorizontalMatches(x, y, minLength); //
+        List<GamePiece> verticalMatches = FindVerticalMatches(x, y, minLength); //
 
-        if (horizontalmatches == null)
+        if (horizontalMatches == null) //
         {
-            horizontalmatches = new List<GamePiece>();
+            horizontalMatches = new List<GamePiece>(); //
         }
 
-        if (verticalMatches == null)
+        if (verticalMatches == null) //
         {
-            verticalMatches = new List<GamePiece>();
+            verticalMatches = new List<GamePiece>(); //
         }
 
-        var listasCombinadas = horizontalmatches.Union(verticalMatches).ToList();
-        return listasCombinadas;
+        var combinedMatches = horizontalMatches.Union(verticalMatches).ToList();
+        return combinedMatches;
     }
-    List<GamePiece> EncontrarCoincidenciasEn(List<GamePiece> gamePieces, int minLenght = 3) // EncontrarCoincidenciasEn = FindMatchesAt
+    List<GamePiece> FindMatchesAt(List<GamePiece> gamePieces, int minLenght = 3) // FindMatchesAt = EncontrarCoincidenciasEn ///
     {
-        List<GamePiece> matches = new List<GamePiece>();
+        List<GamePiece> matches = new List<GamePiece>(); //
 
-        foreach (GamePiece piece in gamePieces)
+        foreach (GamePiece piece in gamePieces) //
         {
-            matches = matches.Union(EncontrarCoincidenciasEn(piece.cordenadaX, piece.cordenadaY, minLenght)).ToList();
+            matches = matches.Union(FindMatchesAt(piece.xIndex, piece.yIndex, minLenght)).ToList(); //
         }
-
-        return matches;
+        return matches; //
     }
-    public bool EsVecino(Tile initialTile, Tile finalTile) // EsVecino = IsNexTo 
+    private bool IsNextTo(Tile start, Tile end) // IsNexTo = EsVecino
     {
-        if (Mathf.Abs(initialTile.indiceX - finalTile.indiceX) == 1 && initialTile.indiceY == finalTile.indiceY)
+        if (Mathf.Abs(start.xIndex - end.xIndex) == 1 && start.yIndex == end.yIndex) //
         {
-            return true;
+            return true; //
         }
-       
-        if (Mathf.Abs(initialTile.indiceY - finalTile.indiceY) == 1 && initialTile.indiceX == finalTile.indiceX)
+
+        if (Mathf.Abs(start.yIndex - end.yIndex) == 1 && start.xIndex == end.xIndex) //
         {
-            return true;
+            return true; //
+        }
+
+        return false; //
+    }
+
+    private List<GamePiece> FindAllMatches() // FindAllMatches = EncontrarTodasLasCoincidencias
+    {
+        List<GamePiece> combinedMatches = new List<GamePiece>(); //
+
+        for (int i = 0; i < width; i++) //
+        {
+            for (int j = 0; j < height; j++) //
+            {
+                var matches = FindMatchesAt(i, j); //
+                combinedMatches = combinedMatches.Union(matches).ToList(); //
+            }
+        }
+        return combinedMatches; //
+    }
+    void HihglightTileOff(int x, int y) // HighlightTileOff = ResaltarTile ///
+    {
+        SpriteRenderer spriteRenderer = m_allTiles[x, y].GetComponent<SpriteRenderer>(); //
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b,0); //
+    }
+
+
+    private void HihglightTileOn(int x, int y, Color col) // HighlightTileOn = ResaltarTile /// 
+    {
+        SpriteRenderer spriteRenderer = m_allTiles[x, y].GetComponent<SpriteRenderer>(); //
+        spriteRenderer.color = col; //
+    }
+
+    public void HighlightMatchesAt(int x, int y) // HighlightMatchesAt = ResaltarCoincidenciasEn ///
+    {
+        HihglightTileOff(x, y); //
+        var combinedMatches = FindMatchesAt(x, y); //
+
+        if (combinedMatches.Count > 0) //
+        {
+            foreach (GamePiece piece in combinedMatches) //
+            {
+                HihglightTileOn(piece.xIndex, piece.yIndex, piece.GetComponent<SpriteRenderer>().color); //
+            }
         }
         
-        return false;
-
     }
-
-    private List<GamePiece> EncontrarTodaslasCoincidencias() // EncontrarTodasLasCoincidencias = FindAllMatcehs
+    public void HighLightMatches() // HighlightMatches = ResaltarCoincidencias  
     {
-        List<GamePiece> coincidenciasCombinadas = new List<GamePiece>(); // coincidenciasCombinadas = combinedMatches
-
-        for (int i = 0; i < ancho; i++)
+        for (int i = 0; i < width; i++) //
         {
-            for (int j = 0; j < alto; j++)
+            for (int j = 0; j < height; j++) //
             {
-                var coincidencias = EncontrarCoincidenciasEn(i, j);
-                coincidenciasCombinadas = coincidenciasCombinadas.Union(coincidencias).ToList();
+                HighlightMatchesAt(i, j); //
             }
         }
 
-        return coincidenciasCombinadas;
-    }
-    private void ResaltarTileOff(int x, int y) // ResaltarTile = HighlightTileOff
-    {
-        SpriteRenderer spriteRenderer = board[x, y].GetComponent<SpriteRenderer>();
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
     }
 
-
-    private void ResaltarTileOn(int x, int y, Color col) // ResaltarTile = HighlightTileOn
+    void HighLightPieces(List<GamePiece> gamePieces) // HighlightPieces = ResaltarPiezas ///
     {
-        SpriteRenderer spriteRenderer = board[x, y].GetComponent<SpriteRenderer>();
-        spriteRenderer.color = col;
-    }
-
-    public void ResaltarCoincidenciasEn(int x, int y) // ResaltarCoincidenciasEn = HighlightMatchesAt
-    {
-        ResaltarTileOff(x, y);
-        var combinedMatches = EncontrarCoincidenciasEn(x, y);
-
-        if (combinedMatches.Count > 0)
+        foreach (GamePiece piece in gamePieces) //
         {
-            foreach (GamePiece piece in combinedMatches)
+            if (piece != null) //
             {
-                ResaltarTileOn(piece.cordenadaX, piece.cordenadaY, piece.GetComponent<SpriteRenderer>().color);
-            }
-        }
-    }
-    public void ResaltarCoincidencias() // ResaltarCoincidencias = HighlightMatches
-    {
-        for (int i = 0; i < ancho; i++)
-        {
-            for (int j = 0; j < alto; j++)
-            {
-                ResaltarCoincidenciasEn(i, j);
+                HihglightTileOn(piece.xIndex, piece.yIndex, piece.GetComponent<SpriteRenderer>().color);
             }
         }
     }
 
-    void ResaltarPiezas(List<GamePiece> gamePieces) // ResaltarPiezas = HighlightPieces
+    private void ClearPieceAt(int x, int y) //
     {
-        foreach (GamePiece piece in gamePieces)
+        GamePiece pieceToClear = m_allGamePieces[x, y]; //
+        if (pieceToClear != null) //
         {
-            if (piece != null)
+            m_allGamePieces[x, y] = null; //
+            Destroy(pieceToClear.gameObject); //
+        }
+        HihglightTileOff(x, y); //
+    }
+    void ClearPiecesAt(List<GamePiece> gamePieces) //
+    {
+        foreach (GamePiece piece in gamePieces) //
+        {
+            if (piece != null) //
             {
-                ResaltarTileOn(piece.cordenadaX, piece.cordenadaY, piece.GetComponent<SpriteRenderer>().color);
+                ClearPieceAt(piece.xIndex, piece.yIndex); //
             }
         }
     }
 
-    private void ClearPieceAt(int x, int y)
+    void ClearBoard() //
     {
-        GamePiece pieceToClear = gamePieces[x, y];
-        if (pieceToClear != null)
+        for (int i = 0; i < width; i++) //
         {
-            gamePieces[x, y] = null;
-            Destroy(pieceToClear.gameObject);
-        }
-
-        ResaltarTileOff(x, y);
-    }
-    void ClearPiecesAt(List<GamePiece> gamePieces)
-    {
-        foreach (GamePiece piece in gamePieces)
-        {
-            if (piece != null)
+            for (int j = 0; j < height; j++) //
             {
-                ClearPieceAt(piece.cordenadaX, piece.cordenadaY);
-
+                ClearPieceAt(i, j); //
             }
         }
     }
-
-    void ClearBoard()
+    GameObject GetRandomPiece() // GetRandomPiece = PiezaAleatoria ///
     {
-        for (int i = 0; i < ancho; i++)
+        int randomInx = Random.Range(0, gamePiecesPrefabs.Length); //
+        if (gamePiecesPrefabs[randomInx] == null) //
         {
-            for (int j = 0; j < alto; j++)
+            Debug.LogWarning($"La clase Board en el array de prefabs en la posicion{randomInx} no contiene una pieza valida"); //
+        }
+        return gamePiecesPrefabs[randomInx]; //
+    }
+
+    public void PlaceGamePiece(GamePiece gamePiece, int x, int y) //
+    {
+        if (gamePiece == null) //
+        {
+            Debug.LogWarning($"gamePiece invalida"); //
+            return; //
+        }
+
+        gamePiece.transform.position = new Vector2(x, y); //
+        gamePiece.transform.rotation = Quaternion.identity; //
+
+        if (IsWithBounds(x, y)) //
+        {
+            m_allGamePieces[x, y] = gamePiece; //
+        }
+
+        gamePiece.SetCoord(x, y); //
+    }
+
+    bool IsWithBounds(int x, int y) // IsWithBounds = EstaEnRango 
+    {
+        return (x >= 0 && x < width && y >= 0 && y < height); //
+    }
+    GamePiece FillRandomAt(int x, int y, int falseOffset = 0, float moveTime = .1f) // FillRandomAt = LlenarMatrizAleatoriaEn ///
+    {
+        GamePiece randomPiece = Instantiate(GetRandomPiece(), Vector2.zero, Quaternion.identity).GetComponent<GamePiece>(); //
+        if (randomPiece != null) //
+        {
+            randomPiece.Init(this); //
+            PlaceGamePiece(randomPiece, x, y); //
+
+            if (falseOffset != 0) //
             {
-                ClearPieceAt(i, j);
+                randomPiece.transform.position = new Vector2(x, y + falseOffset); //
+                randomPiece.Move(x, y, moveTime); //
             }
+            randomPiece.transform.parent = gamePieceParent; //
         }
+        return randomPiece; //
     }
-    GameObject PiezaAleatoria() // PiezaAleatoria = GetRandomPiece
+    void ReplaceWithRandom(List<GamePiece> gamePieces, int falseOffset = 0, float moveTime = .1f) // ReplacedWithRandom = ReemplazarConPiezaAleatoria ///
     {
-        int randomInx = Random.Range(0, prefFichas.Length);
-        if (prefFichas[randomInx] == null)
+        foreach (GamePiece piece in gamePieces) //
         {
-            Debug.LogWarning($"La clase Board en el array de prefabs en la posicion{randomInx} no contiene una pieza valida");
-        }
-
-        return prefFichas[randomInx];
-    }
-
-    public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
-    {
-        if (gamePiece == null)
-        {
-            Debug.LogWarning($"gamePiece invalida");
-            return;
-        }
-
-        gamePiece.transform.position = new Vector2(x, y);
-        gamePiece.transform.rotation = Quaternion.identity;
-
-        if (EstaEnRango(x, y))
-        {
-            gamePieces[x, y] = gamePiece;
-        }
-
-        gamePiece.Coordenadas(x, y);
-    }
-
-    public bool EstaEnRango(int x, int y) //EstaEnRango = IsWithBounds
-    {
-        return (x >= 0 && x < ancho && y >= 0 && y < alto);
-    }
-    GamePiece LlenarMatrizAleatoriaEn(int x, int y, int falseOffset = 0, float moveTime = .1f) // LlenarMatrizAleatoriaEn = FillRandomAt
-    {
-        GamePiece randomPiece = Instantiate(PiezaAleatoria(), Vector2.zero, Quaternion.identity).GetComponent<GamePiece>();
-
-        if (randomPiece != null)
-        {
-            randomPiece.Init(this);
-            PlaceGamePiece(randomPiece, x, y);
-           
-            if (falseOffset != 0)
+            ClearPieceAt(piece.xIndex, piece.yIndex); //
+            if (falseOffset == 0) //
             {
-                randomPiece.transform.position = new Vector2(x, y + falseOffset);
-                randomPiece.MoverPieza(x, y, moveTime);
-            }
-            
-            randomPiece.transform.parent = gamepieceParent;
-        }
-
-        return randomPiece;
-    }
-    private void ReemplazarConPiezaAleatoria(List <GamePiece> gamePieces, int falseOffset = 0, float moveTime = .1f) // ReemplazarConPiezaAleatoria = ReplacedWithRandom
-    {
-        foreach (GamePiece piece in gamePieces)
-        {
-            ClearPieceAt(piece.cordenadaX, piece.cordenadaY);
-
-            if (falseOffset == 0)
-            {
-                LlenarMatrizAleatoriaEn(piece.cordenadaX, piece.cordenadaY);
+                FillRandomAt(piece.xIndex, piece.yIndex); //
             }
             else
             {
-                LlenarMatrizAleatoriaEn(piece.cordenadaX, piece.cordenadaY, falseOffset, moveTime);
+                FillRandomAt(piece.xIndex, piece.yIndex, falseOffset, moveTime); //
             }
         }
     }
 
-    List<GamePiece> CollapseColumn(int column, float collapseTime = .1f)
+    List<GamePiece> CollapseColumn(int column, float collapseTime = .1f) //
     {
-        List<GamePiece> movingPieces = new List<GamePiece>();
+        List<GamePiece> movingPieces = new List<GamePiece>(); //
 
-        for (int i = 0; i < alto - 1; i++)
+        for (int i = 0; i < height - 1; i++) //
         {
-            if (gamePieces[column, i] == null)
+            if (m_allGamePieces[column, i] == null) //
             {
-                for (int j = i + 1; j < alto; j++)
+                for (int j = i + 1; j < height; j++) //
                 {
-                    if (gamePieces[column, j] != null)
+                    if (m_allGamePieces[column, j] != null) //
                     {
-                        gamePieces[column, j].MoverPieza(column, i, collapseTime * (j - 1));
+                        m_allGamePieces[column, j].Move(column, i, collapseTime * (j - i)); //
 
-                        gamePieces[column, i] = gamePieces[column, j];
-                        gamePieces[column, i].Coordenadas(column, i);
+                        m_allGamePieces[column, i] = m_allGamePieces[column, j]; //
+                        m_allGamePieces[column, i].SetCoord(column, i); //
 
-                        if (!movingPieces.Contains(gamePieces[column, i]))
+                        if (!movingPieces.Contains(m_allGamePieces[column, i])) //
                         {
-                            movingPieces.Add(gamePieces[column, i]);
+                            movingPieces.Add(m_allGamePieces[column, i]); //
                         }
 
-                        gamePieces[column, j] = null;
-                        break;
+                        m_allGamePieces[column, j] = null; //
+                        break; //
                     }
                 }
             }
         }
-        return movingPieces;
+        return movingPieces; //
     }
 
-    List<GamePiece> CollapseColumn(List<GamePiece> gamePieces)
+    List<GamePiece> CollapseColumn(List<GamePiece> gamePieces) //
     {
-        List<GamePiece> movingPieces = new List<GamePiece>();
-        List<int> collumnsToCollapse = GetCollumns(gamePieces);
+        List<GamePiece> movingPieces = new List<GamePiece>(); //
+        List<int> collumnsToCollapse = GetCollumns(gamePieces); //
 
-        foreach (int column in collumnsToCollapse)
+        foreach (int column in collumnsToCollapse) //
         {
-            movingPieces = movingPieces.Union(CollapseColumn(column)).ToList();
+            movingPieces = movingPieces.Union(CollapseColumn(column)).ToList(); //
         }
-        return movingPieces;
-    }
-    List<int> GetCollumns(List<GamePiece> gamePieces)
-    {
-        List<int> collumnIndex = new List<int>();
 
-        foreach (GamePiece gP in gamePieces)
+        return movingPieces; //
+    }
+    List<int> GetCollumns(List<GamePiece> gamePieces) //
+    {
+        List<int> collumns = new List<int>(); //
+        foreach (GamePiece piece in gamePieces) //
         {
-            if (!collumnIndex.Contains(gP.cordenadaX))
+            if (!collumns.Contains(piece.xIndex)) //
             {
-                collumnIndex.Add(gP.cordenadaX);
+                collumns.Add(piece.xIndex); //
             }
         }
-        return collumnIndex;
+        return collumns; //
     }
 
-    /*void ClearAndRefillBoard(List<GamePiece> game)
+    /*void ClearAndRefillBoard(List<GamePiece> gamePieces)
     {
-
+            REVISAR FOTO 11 !!!!!!
     }*/
-
-
-
-
-
-
-
-
-
-    public void PiezaPosicion(GamePiece gp, int x, int y)
+    IEnumerator ClearAndRefillRoutine(List<GamePiece> gamePieces) //
     {
-        gp.transform.position = new Vector3(x, y, 0f);
-        gp.Coordenadas(x, y);
-        gamePieces[x, y] = gp;
-    }
+        m_playerInputEnabled = true; //
+        List<GamePiece> matches = gamePieces; //
 
-   
-   
-
-  
-
-    
-
-   
-
-
-    
-   
-   
-
-    
-
-   
-   
-
-   
-   
-   
-    
-
-    
-
-   
-    
-
-   
-
-
-
-    IEnumerator ClearAndRefillBoardRoutine(List<GamePiece> gamePieces)
-    {
-        yield return StartCoroutine(ClearAndCollapseColumn(gamePieces));
-        yield return null;
-        yield return StartCoroutine(RefillRoutine());
-        puedeMover = true;
-    }
-    IEnumerator ClearAndCollapseColumn(List<GamePiece> gamePieces)
-    {
-        List<GamePiece> movingPieces = new List<GamePiece>();
-        List<GamePiece> matches = new List<GamePiece>();
-
-        bool isFinished = false;
-
-        while (!isFinished)
+        do
         {
-            ClearPiecesAt(gamePieces);
-            yield return new WaitForSeconds(swapTime);
-            movingPieces = CollapseColumn(gamePieces);
-            matches = EncontrarCoincidenciasEn(movingPieces);
+            yield return StartCoroutine(ClearAndCollapseRoutine(matches)); //
+            yield return null; //
+            yield return StartCoroutine(RefillRoutine()); //
+            matches = FindAllMatches(); //
+            yield return new WaitForSeconds(.5f); // 
 
-            while (!IsColapse(gamePieces))
+        } 
+        while (matches.Count != 0); //
+        m_playerInputEnabled = true; //
+
+    }
+    IEnumerator ClearAndCollapseRoutine(List<GamePiece> gamePieces) //
+    {
+        List<GamePiece> movingPieces = new List<GamePiece>(); //
+        List<GamePiece> matches = new List<GamePiece>(); //
+        HighLightPieces(gamePieces); //
+        yield return new WaitForSeconds(.5f); //
+        bool isFinished = false; //
+
+        while (!isFinished) //
+        {
+            ClearPiecesAt(gamePieces); //
+            yield return new WaitForSeconds(.25f); // Cambiar por SwapTime // 
+
+            movingPieces = CollapseColumn(gamePieces); //
+            while (!IsCollapsed(gamePieces)) //
             {
-                yield return new WaitForEndOfFrame();
+                yield return null; //
             }
+            yield return new WaitForSeconds(.5f); //
 
-            matches = EncontrarCoincidenciasEn(movingPieces);
+            matches = FindMatchesAt(movingPieces); //
 
-            if (matches.Count == 0)
+            if (matches.Count == 0) //
             {
-                isFinished = true;
-                break;
+                isFinished = true; //
+                break; //
             }
             else
             {
-                yield return StartCoroutine(ClearAndCollapseColumn(matches));
+                yield return StartCoroutine(ClearAndCollapseRoutine(matches)); //
             }
-            
         }
-    
+        yield return null; //
     }
 
-    IEnumerator RefillRoutine()
+    IEnumerator RefillRoutine() //
     {
-        LlenarMatriz();
-        yield return null;
+        FillBoard(10, .5f); //
+        yield return null; //
     }
-     bool IsColapse(List<GamePiece> gamePieces)
+    bool IsCollapsed(List<GamePiece> gamePieces) //
     {
-        foreach (GamePiece gp in gamePieces)
+        foreach (GamePiece piece in gamePieces) //
         {
-            if (gp != null)
+            if (piece != null) //
             {
-                if (gp.transform.position.y - (float) gp.cordenadaY > 0.001f)
+                if (piece.transform.position.y - (float)piece.yIndex > 0.001f) //
                 {
-                    return false;
+                    return false; //
                 }
             }
         }
-        return true;
+        return true; //
     }
+
+}
+ 
 
     /*Score
     public static int scoreValue = 0;
@@ -729,5 +675,5 @@ public class Board : MonoBehaviour
 
         scoreFinal = score.text;
     }*/
-}
+
 
