@@ -16,7 +16,8 @@ public class Board : MonoBehaviour
 
     public float swapTime = .3f; //
 
-    public Puntaje m_puntaje;
+    Puntaje m_puntaje;
+    int myCount;
 
     Tile[,] m_allTiles; //
     GamePiece[,] m_allGamePieces; //
@@ -102,7 +103,7 @@ public class Board : MonoBehaviour
                 {
                     if (falseOffset == 0)
                     {
-                        GamePiece piece = FillRandomAt(i, j); // FillRandomAt = LlenarMatrizAleatoriaEn ///
+                        GamePiece piece = FillRandomAt(i, j); //
                         addedPieces.Add(piece); //
                     }
                     else
@@ -114,7 +115,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        int maxIterations = 20; // 
+        int maxIterations = 30; // 
         int iterations = 0; //
 
 
@@ -182,7 +183,7 @@ public class Board : MonoBehaviour
         StartCoroutine(SwitchTilesRoutine(m_clickedTile, m_targetTile)); ///
     }
 
-    IEnumerator SwitchTilesRoutine(Tile clickedTile, Tile targetTile) // SwitchTilesRoutine = SwitchTilesCourutine ///
+    IEnumerator SwitchTilesRoutine(Tile clickedTile, Tile targetTile) //
     {
         if (m_playerInputEnabled) //
         {
@@ -220,15 +221,16 @@ public class Board : MonoBehaviour
 
     void ClearAndRefillBoard(List<GamePiece> gamePieces) //
     {
+        myCount = 0;
         StartCoroutine(ClearAndRefillRoutine(gamePieces)); ///
     }
 
-    List<GamePiece> FindMatches(int startX, int startY, Vector2 searchDirection, int minLength = 3) // FindMatches = EncontrarCoincidencias ///
+    List<GamePiece> FindMatches(int startX, int startY, Vector2 searchDirection, int minLength = 3) //
     {
         List<GamePiece> matches = new List<GamePiece>(); //
         GamePiece startPiece = null; // 
 
-        if (IsWithBounds(startX, startY)) // IsWithBounds = EstaEnRango ///
+        if (IsWithBounds(startX, startY)) //
         {
             startPiece = m_allGamePieces[startX, startY]; //
         }
@@ -285,7 +287,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    List<GamePiece> FindVerticalMatches(int startX, int startY, int minLenght = 3) // FindVerticalMatches = BusquedaVertical ///
+    List<GamePiece> FindVerticalMatches(int startX, int startY, int minLenght = 3) //
     {
         List<GamePiece> upwardMatches = FindMatches(startX, startY, Vector2.up, 2); //
         List<GamePiece> downwardMatches = FindMatches(startX, startY, Vector2.down, 2); //
@@ -303,7 +305,7 @@ public class Board : MonoBehaviour
         var combinedMatches = upwardMatches.Union(downwardMatches).ToList(); //
         return combinedMatches.Count >= minLenght ? combinedMatches : null; //
     }
-    List<GamePiece> FindHorizontalMatches(int startX, int startY, int minLenght = 3) // FindHorizontalMatches = BusquedaHorizontal /// 
+    List<GamePiece> FindHorizontalMatches(int startX, int startY, int minLenght = 3) // 
     {
         List<GamePiece> rightMatches = FindMatches(startX, startY, Vector2.right, 2); // 
         List<GamePiece> leftMatches = FindMatches(startX, startY, Vector2.left, 2); //
@@ -322,7 +324,7 @@ public class Board : MonoBehaviour
         return combinedMatches.Count >= minLenght ? combinedMatches : null; //
     }
 
-    List<GamePiece> FindMatchesAt(int x, int y, int minLength = 3) // FindMatchesAt = EncontrarCoincidenciasEn ///
+    List<GamePiece> FindMatchesAt(int x, int y, int minLength = 3) //
     {
         List<GamePiece> horizontalMatches = FindHorizontalMatches(x, y, minLength); //
         List<GamePiece> verticalMatches = FindVerticalMatches(x, y, minLength); //
@@ -615,6 +617,8 @@ public class Board : MonoBehaviour
                     m_puntaje.SumatoriaPuntos(cantidadPuntos);
                 }
             }
+            //m_puntaje.MovimientosNecesarios -= 1;
+
             yield return StartCoroutine(ClearAndCollapseRoutine(matches)); //
             yield return null; //
             yield return StartCoroutine(RefillRoutine()); //
@@ -627,6 +631,7 @@ public class Board : MonoBehaviour
     }
     IEnumerator ClearAndCollapseRoutine(List<GamePiece> gamePieces) //
     {
+        myCount++; /////////
         List<GamePiece> movingPieces = new List<GamePiece>(); //
         List<GamePiece> matches = new List<GamePiece>(); //
         HighLightPieces(gamePieces); //
@@ -654,6 +659,37 @@ public class Board : MonoBehaviour
             }
             else
             {
+               /* foreach (GamePiece piece in matches)
+                {
+                    if (matches.Count == 3)
+                    {
+                        int cantidadPuntos = 10 * myCount;
+                        m_puntaje.SumatoriaPuntos(cantidadPuntos);
+                    }
+                }
+                if (matches.Count == 4)
+                {
+                    int cantidadPuntos = 20 * myCount;
+
+                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
+
+                }
+                if (matches.Count == 5)
+                {
+                    int cantidadPuntos = 30 * myCount;
+
+                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
+
+                }
+                if (matches.Count >= 6)
+                {
+                    int cantidadPuntos = 40 * myCount;
+
+                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
+
+                }*/
+
+
                 yield return StartCoroutine(ClearAndCollapseRoutine(matches)); //
             }
         }
