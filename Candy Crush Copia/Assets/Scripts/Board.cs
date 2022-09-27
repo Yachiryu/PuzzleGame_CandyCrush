@@ -8,6 +8,7 @@ public class Board : MonoBehaviour
 {
     public int width; //
     public int height; //
+    public AudioSource audioSource;
 
     public int borderSize; //
 
@@ -16,8 +17,8 @@ public class Board : MonoBehaviour
 
     public float swapTime = .3f; //
 
-    Puntaje m_puntaje;
-    int myCount;
+    public Puntaje m_puntaje;
+    int myCount = 0;
 
     Tile[,] m_allTiles; //
     GamePiece[,] m_allGamePieces; //
@@ -437,6 +438,7 @@ public class Board : MonoBehaviour
         if (pieceToClear != null) //
         {
             m_allGamePieces[x, y] = null; //
+            audioSource.Play();
             Destroy(pieceToClear.gameObject); //
         }
         HihglightTileOff(x, y); //
@@ -589,9 +591,7 @@ public class Board : MonoBehaviour
         m_playerInputEnabled = true; //
         List<GamePiece> matches = gamePieces; //
 
-        do
-        {
-            foreach (GamePiece piece in matches)
+           foreach (GamePiece piece in matches)
             {
                 if (matches.Count == 3)
                 {
@@ -617,6 +617,8 @@ public class Board : MonoBehaviour
                     m_puntaje.SumatoriaPuntos(cantidadPuntos);
                 }
             }
+        do
+        {
             //m_puntaje.MovimientosNecesarios -= 1;
 
             yield return StartCoroutine(ClearAndCollapseRoutine(matches)); //
@@ -631,7 +633,7 @@ public class Board : MonoBehaviour
     }
     IEnumerator ClearAndCollapseRoutine(List<GamePiece> gamePieces) //
     {
-        myCount++; /////////
+        myCount++; 
         List<GamePiece> movingPieces = new List<GamePiece>(); //
         List<GamePiece> matches = new List<GamePiece>(); //
         HighLightPieces(gamePieces); //
@@ -659,7 +661,7 @@ public class Board : MonoBehaviour
             }
             else
             {
-               /* foreach (GamePiece piece in matches)
+                foreach (GamePiece piece in matches)
                 {
                     if (matches.Count == 3)
                     {
@@ -687,7 +689,7 @@ public class Board : MonoBehaviour
 
                     m_puntaje.SumatoriaPuntos(cantidadPuntos);
 
-                }*/
+                }
 
 
                 yield return StartCoroutine(ClearAndCollapseRoutine(matches)); //
