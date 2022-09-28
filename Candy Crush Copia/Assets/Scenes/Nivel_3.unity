@@ -942,7 +942,7 @@ GameObject:
   - component: {fileID: 1947079177}
   - component: {fileID: 1947079176}
   m_Layer: 5
-  m_Name: Movimientos
+  m_Name: Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

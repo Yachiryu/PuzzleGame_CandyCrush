@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbfa0310ff56d94d8f901ddae15913f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minutos: 9
+  minutos: 5
   segundos: 0
   tiempo: {fileID: 844314592}
   enMarcha: 1
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e288a1097abdd24787c3b8ce31ab9a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puntajeNecesario: 300
+  puntajeNecesario: 150
 --- !u!1 &2078122329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,20 +1113,21 @@ MonoBehaviour:
   width: 6
   height: 5
   audioSource: {fileID: 2078122333}
-  audioClip: {fileID: 8300000, guid: 23ff215775dede04ea2ff0eebf9b4e3d, type: 3}
   borderSize: 1
   tilePrefab: {fileID: 8778191041354539951, guid: 6c9759047578369409461c623bcf3561, type: 3}
   gamePiecesPrefabs:
   - {fileID: 3525545632192987793, guid: 3af4a066045b4ee4e96904b5cbe02ed5, type: 3}
   - {fileID: 7131774569809620107, guid: 0156d05a87362d641813bba84548b830, type: 3}
   - {fileID: 8738662649744035476, guid: 1cb942f1b39340847a3a5d8b2c0c5bdc, type: 3}
-  - {fileID: 3525545632192987793, guid: 9b2dae098439c98468b415ac1f3cd22b, type: 3}
+  - {fileID: 5087689782755308963, guid: 7aca78ed2245b4d45b5f2a9bf3af280d, type: 3}
+  - {fileID: 162665832721178134, guid: bca44b477edee2f4d846695c34127175, type: 3}
+  - {fileID: 3525545632192987793, guid: 3c8565850daf9ed4bace69f99edfb6cc, type: 3}
   swapTime: 0.3
   m_puntaje: {fileID: 1653680247}
-  cantidadMovimiento: 30
-  moves: {fileID: 1117898328}
   m_clickedTile: {fileID: 0}
   m_targetTile: {fileID: 0}
+  cantidadMovimientos: 30
+  moveText: {fileID: 1117898328}
 --- !u!82 &2078122333
 AudioSource:
   m_ObjectHideFlags: 0

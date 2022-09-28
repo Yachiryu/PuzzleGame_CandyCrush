@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Puntaje : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Puntaje : MonoBehaviour
     private int puntajeAlmacenado;
     private TextMeshProUGUI textMesh;
 
-    SceneManagement sceneManagement;
+    public int puntajeNecesario;
 
     private void Start()
     {
@@ -26,9 +27,9 @@ public class Puntaje : MonoBehaviour
     {
         puntos += puntosEntrada;
 
-        if (puntos >= 500)
+        if (puntos >= puntajeNecesario)
         {
-            sceneManagement.ExitGame();
+            SceneManager.LoadScene("You_Win");
         }
     }
 

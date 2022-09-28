@@ -24,10 +24,9 @@ public class Contador : MonoBehaviour
         {
             restantes -= Time.deltaTime;
 
-            if (restantes <= 0) // 1 Creamos la condicion de perdida por tiempo
+            if (restantes < 1) // Creamos la condicion de perdida por tiempo
             {
-                //SceneManager.LoadScene("Game_Over");
-                Debug.Log("Perdiste");
+               SceneManager.LoadScene("Game_Over");
             }
 
             int tempMin = Mathf.FloorToInt(restantes / 60);

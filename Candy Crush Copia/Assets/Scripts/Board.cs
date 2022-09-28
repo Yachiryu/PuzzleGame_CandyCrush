@@ -34,7 +34,7 @@ public class Board : MonoBehaviour
     Transform gamePieceParent; // Gamepiece padre para saber la ubicacion
 
     public int cantidadMovimientos; // Cantidad de movimiento limite que tiene el jugador
-    public TextMeshProUGUI moveText; // Texto para que se mueste en pantalla los movimientos restantes
+    public TextMeshProUGUI moveText; // Texto para que se muestre en pantalla los movimientos restantes
 
     private void Start()
     {
@@ -359,7 +359,6 @@ public class Board : MonoBehaviour
         {
             int cantidadPuntos = 150;
             m_puntaje.SumatoriaPuntos(cantidadPuntos);
-            Debug.Log("Combo T o L");
         }
         return combinedMatches;
     }
