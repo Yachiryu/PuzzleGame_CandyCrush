@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Board : MonoBehaviour
 {
@@ -32,9 +33,14 @@ public class Board : MonoBehaviour
     Transform tileParent; // Tile padre para saber la ubicacion
     Transform gamePieceParent; // Gamepiece padre para saber la ubicacion
 
+    public int cantidadMovimientos; // Cantidad de movimiento limite que tiene el jugador
+    public TextMeshProUGUI moveText; // Texto para que se mueste en pantalla los movimientos restantes
+
     private void Start()
     {
-        SetParents(); 
+        SetParents();
+
+        moveText.text = "Moves :" + cantidadMovimientos.ToString();
 
         m_allTiles = new Tile[width, height];
         m_allGamePieces = new GamePiece[width, height]; 
@@ -186,36 +192,43 @@ public class Board : MonoBehaviour
 
     IEnumerator SwitchTilesRoutine(Tile clickedTile, Tile targetTile) // En esta corutina efectuamos el cambio de los Tiles que queremos intercambiar para efectuar los matches
     {
-        if (m_playerInputEnabled) 
+        if (m_playerInputEnabled)
         {
-            GamePiece clickedPiece = m_allGamePieces[clickedTile.xIndex, clickedTile.yIndex]; 
-            GamePiece targetPiece = m_allGamePieces[targetTile.xIndex, targetTile.yIndex]; 
+            GamePiece clickedPiece = m_allGamePieces[clickedTile.xIndex, clickedTile.yIndex];
+            GamePiece targetPiece = m_allGamePieces[targetTile.xIndex, targetTile.yIndex];
 
-            if (clickedPiece != null && targetPiece != null) 
+            if (clickedPiece != null && targetPiece != null)
             {
 
-                clickedPiece.Move(targetTile.xIndex, targetTile.yIndex, swapTime); 
-                targetPiece.Move(clickedPiece.xIndex, clickedPiece.yIndex, swapTime); 
+                clickedPiece.Move(targetTile.xIndex, targetTile.yIndex, swapTime);
+                targetPiece.Move(clickedPiece.xIndex, clickedPiece.yIndex, swapTime);
 
-                yield return new WaitForSeconds(swapTime); 
+                yield return new WaitForSeconds(swapTime);
 
                 List<GamePiece> clickedPieceMatches = FindMatchesAt(clickedTile.xIndex, clickedTile.yIndex);
-                List<GamePiece> targetPieceMatches = FindMatchesAt(targetTile.xIndex, targetTile.yIndex); 
+                List<GamePiece> targetPieceMatches = FindMatchesAt(targetTile.xIndex, targetTile.yIndex);
 
-                if (clickedPieceMatches.Count == 0 && targetPieceMatches.Count == 0) 
+                if (clickedPieceMatches.Count == 0 && targetPieceMatches.Count == 0)
                 {
-                    clickedPiece.Move(clickedTile.xIndex, clickedTile.yIndex, swapTime); 
-                    targetPiece.Move(targetTile.xIndex, targetTile.yIndex, swapTime); 
-                    yield return new WaitForSeconds(swapTime); 
+                    clickedPiece.Move(clickedTile.xIndex, clickedTile.yIndex, swapTime);
+                    targetPiece.Move(targetTile.xIndex, targetTile.yIndex, swapTime);
+                    yield return new WaitForSeconds(swapTime);
                 }
                 else
                 {
-                    yield return new WaitForSeconds(swapTime); 
+                    yield return new WaitForSeconds(swapTime);
 
-                    ClearAndRefillBoard(clickedPieceMatches.Union(targetPieceMatches).ToList()); 
+                    ClearAndRefillBoard(clickedPieceMatches.Union(targetPieceMatches).ToList());
                 }
+                cantidadMovimientos--;
+                moveText.text = "Moves :" + cantidadMovimientos.ToString();
+
 
             }
+        }
+        if (cantidadMovimientos <= 0)
+        {
+            SceneManager.LoadScene("Game_Over");
         }
 
     }
@@ -341,6 +354,13 @@ public class Board : MonoBehaviour
         }
 
         var combinedMatches = horizontalMatches.Union(verticalMatches).ToList();
+
+        if (horizontalMatches.Count != 0 && verticalMatches.Count !=0) // Encontramos la T y la L 
+        {
+            int cantidadPuntos = 150;
+            m_puntaje.SumatoriaPuntos(cantidadPuntos);
+            Debug.Log("Combo T o L");
+        }
         return combinedMatches;
     }
     List<GamePiece> FindMatchesAt(List<GamePiece> gamePieces, int minLenght = 3) // Encontramos las coincidencias efectuadas de cada una de las piezas
@@ -589,29 +609,29 @@ public class Board : MonoBehaviour
         m_playerInputEnabled = true; 
         List<GamePiece> matches = gamePieces;
 
-           foreach (GamePiece piece in matches)
+           foreach (GamePiece piece in matches) // Sumamos los puntos
             {
                 if (matches.Count == 3)
                 {
-                    int cantidadPuntos = 1;
+                    int cantidadPuntos = 10;
                     m_puntaje.SumatoriaPuntos(cantidadPuntos);
                 }
 
                 if (matches.Count == 4)
                 {
-                    int cantidadPuntos = 2;
+                    int cantidadPuntos = 20;
                     m_puntaje.SumatoriaPuntos(cantidadPuntos);
                 }
 
                 if (matches.Count == 5)
                 {
-                    int cantidadPuntos = 3;
+                    int cantidadPuntos = 30;
                     m_puntaje.SumatoriaPuntos(cantidadPuntos);
                 }
 
                 if (matches.Count >= 6)
                 {
-                    int cantidadPuntos = 4;
+                    int cantidadPuntos = 40;
                     m_puntaje.SumatoriaPuntos(cantidadPuntos);
                 }
             }
@@ -662,31 +682,32 @@ public class Board : MonoBehaviour
                     if (matches.Count == 3)
                     {
                         int cantidadPuntos = 10 * myCount;
+
                         m_puntaje.SumatoriaPuntos(cantidadPuntos);
+
+                    }
+                    if (matches.Count == 4)
+                    {
+                        int cantidadPuntos = 20 * myCount;
+
+                        m_puntaje.SumatoriaPuntos(cantidadPuntos);
+
+                    }
+                    if (matches.Count == 5)
+                    {
+                        int cantidadPuntos = 30 * myCount;
+
+                        m_puntaje.SumatoriaPuntos(cantidadPuntos);
+
+                    }
+                    if (matches.Count >= 6)
+                    {
+                        int cantidadPuntos = 40 * myCount;
+
+                        m_puntaje.SumatoriaPuntos(cantidadPuntos);
+
                     }
                 }
-                if (matches.Count == 4)
-                {
-                    int cantidadPuntos = 20 * myCount;
-
-                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
-
-                }
-                if (matches.Count == 5)
-                {
-                    int cantidadPuntos = 30 * myCount;
-
-                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
-
-                }
-                if (matches.Count >= 6)
-                {
-                    int cantidadPuntos = 40 * myCount;
-
-                    m_puntaje.SumatoriaPuntos(cantidadPuntos);
-
-                }
-
 
                 yield return StartCoroutine(ClearAndCollapseRoutine(matches)); //
             }
