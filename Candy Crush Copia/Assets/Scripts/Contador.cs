@@ -13,18 +13,18 @@ public class Contador : MonoBehaviour
     private float restantes;
     public bool enMarcha;
 
-    public void Awake()
+    public void Awake() // Calculamos el tiempo restante 
     {
-        restantes = (minutos * 60) + segundos;
+        restantes = (minutos * 60) + segundos; 
     }
 
-    public void Update()
+    public void Update() // Creamos la condicion de perdida por tiempo y calculamos el tiempo 
     {
         if (enMarcha)
         {
             restantes -= Time.deltaTime;
 
-            if (restantes < 1)
+            if (restantes <= 0) // 1 Creamos la condicion de perdida por tiempo
             {
                 //SceneManager.LoadScene("Game_Over");
                 Debug.Log("Perdiste");
@@ -33,7 +33,7 @@ public class Contador : MonoBehaviour
             int tempMin = Mathf.FloorToInt(restantes / 60);
             int tempSegundos = Mathf.FloorToInt(restantes % 60);
 
-            tiempo.text = string.Format("{00:00} : {01:00}", tempMin, tempSegundos);
+            tiempo.text = string.Format("{00:00} : {01:00}", tempMin, tempSegundos); // convertimos el texto a strings y se pueda mostrar en el juego
         }
     }
 

@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class GamePiece : MonoBehaviour
 {
-    public int xIndex;
-    public int yIndex;
+    public int xIndex; // Indice
+    public int yIndex; // Indice
 
-    Board m_board;
+    Board m_board; // Referencia al script del Board
 
-    public bool m_isMoving = false; // Devolverlo a private
+    bool m_isMoving = false; // Sabemos si se mueve o no
     
-    public TipoMovimiento tipoDeMovimiento; // Interpolation
-    public TipoFicha tipoFicha; // MatchValue
+    public TipoMovimiento tipoDeMovimiento; // Controlamos el tipo de movimiento que van a tener las fichas
+    public TipoFicha tipoFicha; // El tipo de fichas para poder identificarlas
 
-    public void SetCoord(int x , int y)
+    public void SetCoord(int x , int y) // Inicializamos para dar a conocer las coordenadas
     {
         xIndex = x;
         yIndex = y;
     }
 
-    public void Init(Board board)
+    public void Init(Board board) // Inicializamos el board
     {
         m_board = board;
     }
 
-    public void Move(int x, int y, float moveTime)
+    public void Move(int x, int y, float moveTime) // Llamamos la corutina de moveRoutine
     {
         if (!m_isMoving)
         {
@@ -33,7 +33,7 @@ public class GamePiece : MonoBehaviour
         }
     }
 
-    IEnumerator MoveRoutine(int destX, int destY, float timeToMove)
+    IEnumerator MoveRoutine(int destX, int destY, float timeToMove) // Hacemos que las fichas se puedan mover y si sabemos si se selecciona algun tipo de movimiento y hace el calculo correspondiente
     {
         Vector2 startPosition = transform.position;
         bool reacedDestination = false;
@@ -85,7 +85,7 @@ public class GamePiece : MonoBehaviour
         m_isMoving = false;
 
     }
-    public enum TipoMovimiento // InterType
+    public enum TipoMovimiento // Lista para que podamos seleccionar en el editor el tipo de movimiento
     {
         Linear,
         EaseOut,
@@ -93,7 +93,7 @@ public class GamePiece : MonoBehaviour
         SmoothStep,
         SmootherStep
     }
-    public enum TipoFicha // MatchValue
+    public enum TipoFicha // Lista para que podamos seleccionar en el editor el tipo de ficha
     {
         Naranja,
         Manzana,

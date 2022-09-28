@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    // Todo esto es para crear el sonido para saber cuando activarlo en los botones 
+
     public AudioSource audioSource;
     public AudioClip audioClip;
 

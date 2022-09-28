@@ -22,7 +22,7 @@ public class Puntaje : MonoBehaviour
         textMesh.text = puntos.ToString("Score : 0");
     }
 
-    public void SumatoriaPuntos(int puntosEntrada)
+    public void SumatoriaPuntos(int puntosEntrada) // Sumamos los puntos entrantes y creamos las condiciones de victorias 
     {
         puntos += puntosEntrada;
 

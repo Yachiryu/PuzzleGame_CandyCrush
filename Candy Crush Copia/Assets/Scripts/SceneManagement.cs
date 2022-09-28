@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
+    // Todo esto es para cargar las escenas con los botones
     public void MainMenu() 
     {
         SceneManager.LoadScene("Main Menu");
